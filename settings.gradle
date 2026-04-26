@@ -1,0 +1,25 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url = "https://maven.fabricmc.net/" }
+        mavenCentral()
+    }
+}
+
+rootProject.name = "tradecompass-workspace"
+
+includeBuild("versions/1.21.11") {
+    name = "tradecompass-1.21.11"
+}
+includeBuild("versions/26.1.x") {
+    name = "tradecompass-26.1.x"
+}
+includeBuild("versions/26.1") {
+    name = "tradecompass-26.1"
+}
+includeBuild("versions/26.1.1") {
+    name = "tradecompass-26.1.1"
+}
+includeBuild("versions/26.1.2") {
+    name = "tradecompass-26.1.2"
+}
