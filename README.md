@@ -1,25 +1,82 @@
-# Trade Compass
+<p align="center">
+  <a href="https://modrinth.com/user/earlystream">
+    <img
+      src="https://cdn.modrinth.com/data/cached_images/2df5ae65196aa7a4a0aef20e208c0005ff06471f.png"
+      alt="Modrinth profile"
+      style="image-rendering: pixelated;"
+    />
+  </a>
 
-A client-side villager trade finder for searchable trading halls.
+  <a href="https://github.com/earlystream">
+    <img
+      src="https://cdn.modrinth.com/data/cached_images/14bb5f6380dbf0e9a0bc20179ef4d9728b0f88d9.png"
+      alt="GitHub profile"
+      style="image-rendering: pixelated;"
+    />
+  </a>
+</p>
 
-Trade Compass remembers villager and wandering trader offers after the player opens the normal vanilla trade screen. Press `V` to search trades already seen in the current world or server, select a result, and use the HUD distance hint to return to the last known merchant location.
 
-## Builds
+# Find My Villager
 
-- `versions/1.21.11`: Minecraft `1.21.11`, Loom `1.14.10`, Java 21 bytecode, Fabric Loader `>=0.18.1`
-- `versions/26.1`: Minecraft `26.1`, unobfuscated Loom `1.15.5`, Java 25 bytecode, Fabric Loader `>=0.18.4`
-- `versions/26.1.1`: Minecraft `26.1.1`, unobfuscated Loom `1.15.5`, Java 25 bytecode, Fabric Loader `>=0.18.4`
-- `versions/26.1.2`: Minecraft `26.1.2`, unobfuscated Loom `1.15.5`, Java 25 bytecode, Fabric Loader `>=0.18.4`
-- `versions/26.1.x`: compatibility-range build for Minecraft `>=26.1.1 <=26.1.2`
+**Ctrl+F for your trading hall.** Find any villager trade you've seen before — search by item, navigate to the villager, and never lose a good trade again.
 
-Run all targets:
+---
+
+## How it works
+
+1. Open any villager or wandering trader's trade screen as normal — Find My Villager silently records their offers.
+2. Press **V** to open the search UI.
+3. Type what you're looking for (`mending`, `diamond`, `silk`, anything).
+4. Click a trade to set it as your target — a HUD compass shows the direction and distance to that villager.
+5. The targeted villager glows so you can spot them the moment they're on screen.
+
+Your last selected villager and trade are remembered when you close and reopen the UI.
+
+---
+
+## Features
+
+- **Instant search** across every villager you've ever opened in the current world
+- **Per-trade targeting** — select the exact trade you want, not just the villager
+- **Live position tracking** — the compass follows the villager as they move, not just their workstation
+- **Glow highlight** on the targeted villager
+- **Stock status** — see at a glance whether a trade is in stock or sold out
+- **Delete / Clear All** with confirmation — remove individual villagers or wipe the whole list
+- **Client-side only** — no server mod required, no packets sent, no trades automated
+- Saves data locally under `config/tradecompass/worlds/`
+
+---
+
+## Supported versions
+
+| Minecraft | Loader |
+|-----------|--------|
+| 1.21.11   | Fabric |
+| 26.1      | Fabric |
+| 26.1.1    | Fabric |
+| 26.1.2    | Fabric |
+
+---
+
+## Building
 
 ```sh
 ./gradlew build
 ```
 
-Output jars are written under each version folder's `build/libs` directory.
+Output JARs are written to each version's `build/libs/` directory.
 
-## Scope
+| Version folder | Minecraft | Java |
+|----------------|-----------|------|
+| `versions/1.21.11` | 1.21.11 | 21 |
+| `versions/26.1`    | 26.1    | 25 |
+| `versions/26.1.1`  | 26.1.1  | 25 |
+| `versions/26.1.2`  | 26.1.2  | 25 |
+| `versions/26.1.x`  | >=26.1.1 <=26.1.2 (range build) | 25 |
 
-This is a client-only quality-of-life mod. It stores local JSON data under `config/tradecompass/worlds/`, does not require server installation, does not send custom packets, and does not modify or automate trades.
+---
+
+## License
+
+[MPL-2.0](LICENSE)
