@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[63,)"
+license = "MPL-2.0"
+
+[[mods]]
+    modId = "tradecompass"
+    version = "${version}"
+    displayName = "Find My Villager"
+    description = "Ctrl+F for your trading hall. Find any villager trade you have seen before."
+    logoFile = "icon.png"
+    authors = "earlystream"
+
+[[mixins]]
+    config = "tradecompass.mixins.json"
+
+[[dependencies.tradecompass]]
+    modId = "forge"
+    mandatory = true
+    versionRange = "[63,)"
+    ordering = "NONE"
+    side = "CLIENT"
+
+[[dependencies.tradecompass]]
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[26.1.1,)"
+    ordering = "NONE"
+    side = "CLIENT"

@@ -1,0 +1,67 @@
+plugins {
+    id "java"
+    id "idea"
+    id "eclipse"
+    id "net.minecraftforge.gradle" version "[7.0.17,8)"
+    id "maven-publish"
+}
+
+group = "com.earlystream"
+version = "0.1.0+26.1.1-forge"
+
+base {
+    archivesName = "tradecompass"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withSourcesJar()
+}
+
+sourceSets.main.resources {
+    srcDir "src/generated/resources"
+}
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir("run")
+            systemProperty "eventbus.api.strictRuntimeChecks", "true"
+        }
+
+        register("client")
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation minecraft.dependency("net.minecraftforge:forge:26.1.1-63.0.2")
+    implementation "com.google.code.gson:gson:2.11.0"
+    annotationProcessor "net.minecraftforge:eventbus-validator:7.0.1"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = "UTF-8"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    manifest {
+        attributes "MixinConfigs": "tradecompass.mixins.json"
+    }
+}
