@@ -38,6 +38,7 @@ public class WorldTradeDatabase {
         if (merchants == null) {
             merchants = new LinkedHashMap<>();
         }
+        record.copyManualNameFrom(merchants.get(record.merchantKey()));
         merchants.put(record.merchantKey(), record);
     }
 

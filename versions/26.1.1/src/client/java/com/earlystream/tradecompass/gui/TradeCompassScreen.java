@@ -40,7 +40,12 @@ public class TradeCompassScreen extends Screen {
     private static String lastSelectedMerchantKey = null;
     private static int lastSelectedTradeIndex = 0;
     private EditBox searchBox;
+    private EditBox nameBox;
     private Button clearAllButton;
+    private Button toggleNamesButton;
+    private Button saveNameButton;
+    private Button clearNameButton;
+    private String nameBoxMerchantKey = "";
     private long clearPendingUntil = 0;
     private final List<GroupedSearchResult> results = new ArrayList<>();
     private final Map<String, LivingEntity> mugshotEntities = new HashMap<>();
@@ -55,9 +60,11 @@ public class TradeCompassScreen extends Screen {
 
     @Override
     protected void init() {
-        searchBox = new EditBox(font, 18, 24, Math.max(120, width - 220), 20, Component.literal("Search trades"));
+        searchBox = new EditBox(font, 18, 24, Math.max(120, width - 290), 20, Component.literal("Search trades"));
         searchBox.setResponder(value -> refreshResults());
         addRenderableWidget(searchBox);
+        toggleNamesButton = addRenderableWidget(Button.builder(Component.empty(), button -> toggleVillagerNames()).bounds(width - 260, 24, 64, 20).build());
+        updateToggleNamesButton();
         addRenderableWidget(Button.builder(Component.literal("Clear Target"), button -> TradeCompassClient.clearSelected()).bounds(width - 190, 24, 82, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Delete"), button -> deleteSelected()).bounds(width - 102, 24, 42, 20).build());
         clearAllButton = Button.builder(Component.literal("Clear All"), button -> {
@@ -72,6 +79,14 @@ public class TradeCompassScreen extends Screen {
             }
         }).bounds(width - 54, 24, 36, 20).build();
         addRenderableWidget(clearAllButton);
+        int nameControlsY = 150;
+        int nameControlsRight = width - 14;
+        int nameControlsLeft = listRight() + 92;
+        nameBox = addRenderableWidget(new EditBox(font, nameControlsLeft, nameControlsY, Math.max(70, nameControlsRight - nameControlsLeft - 104), 20, Component.literal("Villager name")));
+        nameBox.setMaxLength(80);
+        saveNameButton = addRenderableWidget(Button.builder(Component.literal("Save"), button -> saveManualName()).bounds(nameControlsRight - 98, nameControlsY, 44, 20).build());
+        clearNameButton = addRenderableWidget(Button.builder(Component.literal("Clear"), button -> clearManualName()).bounds(nameControlsRight - 50, nameControlsY, 36, 20).build());
+        setNameControlsVisible(false);
         setInitialFocus(searchBox);
         refreshResults();
     }
@@ -85,12 +100,12 @@ public class TradeCompassScreen extends Screen {
         graphics.fill(0, 0, width, height, 0xD0101010);
         graphics.fill(0, 0, width, 47, 0x18FFFFFF);
         graphics.text(font, title, 18, 10, 0xFFFFFFFF, false);
-        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         graphics.fill(0, 47, width, 48, 0x60FFFFFF);
         graphics.fill(0, height - 23, width, height - 22, 0x40FFFFFF);
         renderRows(graphics, mouseX, mouseY);
         renderDetails(graphics);
         graphics.text(font, "Saved: " + TradeCompassClient.database().size() + " villagers  |  Results: " + results.size() + "  |  " + TradeCompassClient.loadedWorldKey(), 18, height - 16, 0xFF707070, false);
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
     }
 
     private void renderRows(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
@@ -134,7 +149,7 @@ public class TradeCompassScreen extends Screen {
         MerchantRecord merchant = result.merchant();
         int textX = 74;
 
-        graphics.text(font, merchant.professionLevelText(), textX, y + 6, 0xFFB8D7FF, false);
+        graphics.text(font, resultTitle(result), textX, y + 6, 0xFFB8D7FF, false);
         graphics.text(font, merchant.levelProgressText() + "  ·  " + distanceText(result), textX, y + 19, 0xFF888888, false);
 
         int matchCount = result.matchingOffers().size();
@@ -169,37 +184,42 @@ public class TradeCompassScreen extends Screen {
     private void renderDetails(GuiGraphicsExtractor graphics) {
         int left = listRight() + 10;
         if (left > width - 170) {
+            setNameControlsVisible(false);
             return;
         }
         int right = width - 14;
         int top = 54;
+        layoutNameControls(left, right, top + 96);
         graphics.fill(left - 5, 48, left - 4, height - 23, 0x40FFFFFF);
         graphics.fill(left, top, right, height - 24, 0x40202020);
         GroupedSearchResult selected = selectedIndex >= 0 && selectedIndex < results.size() ? results.get(selectedIndex) : null;
         if (selected == null) {
+            setNameControlsVisible(false);
             graphics.text(font, "Select a villager", left + 12, top + 20, 0xFFFFFFFF, false);
             graphics.text(font, "Click a row to see all of its trades here.", left + 12, top + 36, 0xFF808080, false);
             return;
         }
         MerchantRecord merchant = selected.merchant();
+        syncNameControls(merchant);
         long now = System.currentTimeMillis();
-        graphics.fill(left, top, right, top + 100, 0x20FFFFFF);
-        graphics.text(font, merchant.professionLevelText(), left + 70, top + 12, 0xFFFFFFFF, false);
+        graphics.fill(left, top, right, top + 126, 0x20FFFFFF);
+        graphics.text(font, detailsTitle(merchant), left + 70, top + 12, 0xFFFFFFFF, false);
         graphics.text(font, merchant.levelProgressText(), left + 70, top + 26, 0xFFD0D0D0, false);
         renderLevelProgressBar(graphics, merchant, left + 70, top + 40, Math.max(60, right - left - 86));
         graphics.text(font, merchant.status(now) + " - " + distanceText(selected), left + 70, top + 52, 0xFFB8D7FF, false);
         graphics.text(font, merchant.coordinatesText(), left + 12, top + 66, 0xFFC8C8C8, false);
         graphics.text(font, "Last checked: " + TimeTextUtil.ago(merchant.lastScannedEpochMillis(), now), left + 12, top + 80, 0xFFA8A8A8, false);
+        graphics.text(font, "Name", left + 12, top + 102, 0xFFA8A8A8, false);
         renderAvatar(graphics, merchant, left + 12, top + 12, 48);
-        graphics.fill(left + 8, top + 100, right - 8, top + 101, 0x50FFFFFF);
+        graphics.fill(left + 8, top + 126, right - 8, top + 127, 0x50FFFFFF);
         int inStockCount = 0;
         for (TradeOfferRecord t : merchant.offers()) { if (t.inStock()) inStockCount++; }
         int outCount = merchant.offers().size() - inStockCount;
         String tradesLabel = merchant.offers().size() + " trades";
         if (outCount > 0) tradesLabel += "  ·  " + inStockCount + " in  ·  " + outCount + " out";
         else tradesLabel += "  ·  all in stock";
-        graphics.text(font, tradesLabel, left + 12, top + 106, 0xFF909090, false);
-        int listTop = top + 122;
+        graphics.text(font, tradesLabel, left + 12, top + 132, 0xFF909090, false);
+        int listTop = detailsTradeListTop();
         int listBottom = height - 24;
         int maxVisible = Math.max(1, (listBottom - listTop) / 36);
         int totalTrades = merchant.offers().size();
@@ -379,7 +399,15 @@ public class TradeCompassScreen extends Screen {
         double y = client.player == null ? 0.0D : client.player.getY();
         double z = client.player == null ? 0.0D : client.player.getZ();
         results.clear();
-        results.addAll(TradeSearchIndex.searchGrouped(TradeCompassClient.database(), searchBox == null ? "" : searchBox.getValue(), dimension, x, y, z));
+        results.addAll(TradeSearchIndex.searchGrouped(
+                TradeCompassClient.database(),
+                searchBox == null ? "" : searchBox.getValue(),
+                dimension,
+                x,
+                y,
+                z,
+                TradeCompassClient.settings().showVillagerNamesInSearch()
+        ));
         scrollOffset = Math.min(scrollOffset, Math.max(0, results.size() - 1));
         selectedIndex = results.isEmpty() ? -1 : 0;
         selectedTradeIndex = 0;
@@ -445,6 +473,50 @@ public class TradeCompassScreen extends Screen {
         refreshResults();
     }
 
+    private void toggleVillagerNames() {
+        boolean enabled = !TradeCompassClient.settings().showVillagerNamesInSearch();
+        TradeCompassClient.settings().showVillagerNamesInSearch(enabled);
+        TradeCompassClient.saveSettings();
+        updateToggleNamesButton();
+        refreshResults();
+    }
+
+    private void updateToggleNamesButton() {
+        if (toggleNamesButton != null) {
+            toggleNamesButton.setMessage(Component.literal(TradeCompassClient.settings().showVillagerNamesInSearch() ? "Names: On" : "Names: Off"));
+        }
+    }
+
+    private void saveManualName() {
+        MerchantRecord merchant = selectedMerchant();
+        if (merchant == null || nameBox == null) {
+            return;
+        }
+        merchant.manualName(nameBox.getValue());
+        TradeCompassClient.save();
+        refreshResults();
+    }
+
+    private void clearManualName() {
+        MerchantRecord merchant = selectedMerchant();
+        if (merchant == null) {
+            return;
+        }
+        merchant.manualName("");
+        if (nameBox != null) {
+            nameBox.setValue("");
+        }
+        TradeCompassClient.save();
+        refreshResults();
+    }
+
+    private MerchantRecord selectedMerchant() {
+        if (selectedIndex < 0 || selectedIndex >= results.size()) {
+            return null;
+        }
+        return results.get(selectedIndex).merchant();
+    }
+
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         if (super.mouseClicked(event, doubleClick)) {
@@ -452,7 +524,7 @@ public class TradeCompassScreen extends Screen {
         }
         int left = listRight() + 10;
         int right = width - 14;
-        int listTop = 54 + 122;
+        int listTop = detailsTradeListTop();
         int listBottom = height - 24;
         if (event.x() > left && event.x() < right && event.y() >= listTop && event.y() < listBottom
                 && selectedIndex >= 0 && selectedIndex < results.size()) {
@@ -486,7 +558,7 @@ public class TradeCompassScreen extends Screen {
         int dir = (int) Math.signum(verticalAmount);
         if (mouseX > listRight() && selectedIndex >= 0 && selectedIndex < results.size()) {
             int totalTrades = results.get(selectedIndex).merchant().offers().size();
-            int maxVisible = Math.max(1, (height - 24 - (54 + 122)) / 36);
+            int maxVisible = Math.max(1, (height - 24 - detailsTradeListTop()) / 36);
             detailsScrollOffset = Math.max(0, Math.min(Math.max(0, totalTrades - maxVisible), detailsScrollOffset - dir));
         } else {
             scroll(-dir * 3);
@@ -496,6 +568,9 @@ public class TradeCompassScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
+        if (nameBox != null && nameBox.isFocused() && super.keyPressed(event)) {
+            return true;
+        }
         int visibleRows = Math.max(1, (height - 78) / ROW_HEIGHT);
         int keyCode = event.key();
         if (keyCode == GLFW.GLFW_KEY_UP) {
@@ -537,4 +612,70 @@ public class TradeCompassScreen extends Screen {
         }
         return ((int) mouseY - top) / ROW_HEIGHT + scrollOffset;
     }
+
+    private String resultTitle(GroupedSearchResult result) {
+        MerchantRecord merchant = result.merchant();
+        if (!TradeCompassClient.settings().showVillagerNamesInSearch() || !merchant.hasVillagerName()) {
+            return merchant.professionLevelText();
+        }
+        return merchant.villagerName() + " — " + merchant.professionLevelText();
+    }
+
+    private String detailsTitle(MerchantRecord merchant) {
+        if (!TradeCompassClient.settings().showVillagerNamesInSearch() || !merchant.hasVillagerName()) {
+            return merchant.professionLevelText();
+        }
+        return merchant.villagerName() + " — " + merchant.professionLevelText();
+    }
+
+    private void layoutNameControls(int left, int right, int y) {
+        if (nameBox == null || saveNameButton == null || clearNameButton == null) {
+            return;
+        }
+        int boxLeft = left + 48;
+        nameBox.setX(boxLeft);
+        nameBox.setY(y);
+        nameBox.setWidth(Math.max(70, right - boxLeft - 104));
+        saveNameButton.setX(right - 98);
+        saveNameButton.setY(y);
+        clearNameButton.setX(right - 50);
+        clearNameButton.setY(y);
+    }
+
+    private void syncNameControls(MerchantRecord merchant) {
+        setNameControlsVisible(true);
+        if (nameBox == null || merchant == null) {
+            return;
+        }
+        if (!merchant.merchantKey().equals(nameBoxMerchantKey)) {
+            nameBoxMerchantKey = merchant.merchantKey();
+            nameBox.setValue(merchant.manualName());
+        }
+        if (clearNameButton != null) {
+            clearNameButton.active = !merchant.manualName().isBlank();
+        }
+    }
+
+    private void setNameControlsVisible(boolean visible) {
+        if (nameBox != null) {
+            nameBox.visible = visible;
+            nameBox.active = visible;
+        }
+        if (saveNameButton != null) {
+            saveNameButton.visible = visible;
+            saveNameButton.active = visible;
+        }
+        if (clearNameButton != null) {
+            clearNameButton.visible = visible;
+            clearNameButton.active = visible;
+        }
+        if (!visible) {
+            nameBoxMerchantKey = "";
+        }
+    }
+
+    private int detailsTradeListTop() {
+        return 54 + 148;
+    }
 }
+

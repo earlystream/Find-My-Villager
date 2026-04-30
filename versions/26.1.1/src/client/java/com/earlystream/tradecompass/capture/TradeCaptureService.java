@@ -101,6 +101,7 @@ public final class TradeCaptureService {
             record.entityType(pending.entityType());
             record.professionId(pending.professionId());
             record.profession(pending.profession());
+            record.detectedName(pending.detectedName());
             record.level(pending.level());
             record.levelNumber(pending.levelNumber());
             record.villagerXp(pending.villagerXp());

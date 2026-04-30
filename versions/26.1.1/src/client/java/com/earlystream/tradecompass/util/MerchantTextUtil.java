@@ -1,6 +1,7 @@
 package com.earlystream.tradecompass.util;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerData;
@@ -44,6 +45,13 @@ public final class MerchantTextUtil {
         return entityTypeName(entity);
     }
 
+    public static String villagerCustomName(Entity entity) {
+        if (entity == null) {
+            return "";
+        }
+        return componentText(entity.getCustomName());
+    }
+
     public static String villagerLevel(Entity entity) {
         if (entity instanceof Villager villager) {
             VillagerData data = villager.getVillagerData();
@@ -78,6 +86,10 @@ public final class MerchantTextUtil {
             return VillagerData.getMaxXpPerLevel(level);
         }
         return -1;
+    }
+
+    private static String componentText(Component component) {
+        return component == null ? "" : component.getString().trim();
     }
 
     private static String title(String value) {
