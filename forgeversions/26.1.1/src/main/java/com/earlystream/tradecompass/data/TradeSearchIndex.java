@@ -20,10 +20,14 @@ public final class TradeSearchIndex {
     }
 
     public static List<GroupedSearchResult> searchGrouped(WorldTradeDatabase database, String query, String currentDimension, double playerX, double playerY, double playerZ) {
+        return searchGrouped(database, query, currentDimension, playerX, playerY, playerZ, true);
+    }
+
+    public static List<GroupedSearchResult> searchGrouped(WorldTradeDatabase database, String query, String currentDimension, double playerX, double playerY, double playerZ, boolean includeVillagerNames) {
         String normalized = normalize(query);
         List<GroupedSearchResult> results = new ArrayList<>();
         for (MerchantRecord merchant : database.merchants()) {
-            boolean merchantMatches = normalized.isBlank() || merchant.matches(normalized);
+            boolean merchantMatches = normalized.isBlank() || merchant.matches(normalized, includeVillagerNames);
             List<TradeOfferRecord> matchingOffers = new ArrayList<>();
             for (TradeOfferRecord offer : merchant.offers()) {
                 if (merchantMatches || offer.matches(normalized)) {

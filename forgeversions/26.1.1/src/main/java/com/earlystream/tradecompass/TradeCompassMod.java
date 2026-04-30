@@ -2,6 +2,7 @@ package com.earlystream.tradecompass;
 
 import com.earlystream.tradecompass.capture.TradeCaptureService;
 import com.earlystream.tradecompass.config.TradeCompassConfig;
+import com.earlystream.tradecompass.config.TradeCompassSettings;
 import com.earlystream.tradecompass.data.MerchantRecord;
 import com.earlystream.tradecompass.data.SearchResult;
 import com.earlystream.tradecompass.data.TradeCompassStorage;
@@ -26,6 +27,7 @@ import org.lwjgl.glfw.GLFW;
 @Mod(value = TradeCompassConfig.MOD_ID)
 public final class TradeCompassMod {
     private static TradeCompassStorage storage;
+    private static TradeCompassSettings settings = new TradeCompassSettings();
     private static WorldTradeDatabase database = new WorldTradeDatabase();
     private static String loadedWorldKey = "";
     private static SearchResult selectedResult;
@@ -37,6 +39,8 @@ public final class TradeCompassMod {
         AddGuiOverlayLayersEvent.BUS.addListener(TradeCompassMod::onAddGuiOverlayLayers);
 
         storage = new TradeCompassStorage(FMLPaths.CONFIGDIR.get());
+        settings = storage.loadSettings();
+        storage.saveSettings(settings);
         TickEvent.ClientTickEvent.Post.BUS.addListener(TradeCompassMod::onClientTick);
     }
 
@@ -107,6 +111,16 @@ public final class TradeCompassMod {
     public static void save() {
         if (storage != null) {
             storage.save(database);
+        }
+    }
+
+    public static TradeCompassSettings settings() {
+        return settings;
+    }
+
+    public static void saveSettings() {
+        if (storage != null) {
+            storage.saveSettings(settings);
         }
     }
 
