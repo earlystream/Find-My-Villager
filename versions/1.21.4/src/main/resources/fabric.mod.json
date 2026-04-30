@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "tradecompass",
+  "version": "${version}",
+  "name": "Find My Villager",
+  "description": "Ctrl+F for your trading hall. Find any villager trade you have seen before.",
+  "authors": [
+    "earlystream"
+  ],
+  "contact": {},
+  "license": "MPL-2.0",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.earlystream.tradecompass.TradeCompassClient"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "tradecompass.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
