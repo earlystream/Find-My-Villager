@@ -2,6 +2,7 @@ package com.earlystream.tradecompass;
 
 import com.earlystream.tradecompass.capture.TradeCaptureService;
 import com.earlystream.tradecompass.config.TradeCompassConfig;
+import com.earlystream.tradecompass.config.TradeCompassSettings;
 import com.earlystream.tradecompass.data.MerchantRecord;
 import com.earlystream.tradecompass.data.SearchResult;
 import com.earlystream.tradecompass.data.TradeCompassStorage;
@@ -22,6 +23,7 @@ import org.lwjgl.glfw.GLFW;
 
 public final class TradeCompassClient implements ClientModInitializer {
     private static TradeCompassStorage storage;
+    private static TradeCompassSettings settings = new TradeCompassSettings();
     private static WorldTradeDatabase database = new WorldTradeDatabase();
     private static String loadedWorldKey = "";
     private static SearchResult selectedResult;
@@ -31,6 +33,8 @@ public final class TradeCompassClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         storage = new TradeCompassStorage(FabricLoader.getInstance().getConfigDir());
+        settings = storage.loadSettings();
+        storage.saveSettings(settings);
         TradeCompassKeybinds.register();
         TradeCompassTargetHudRenderer.register();
         ClientTickEvents.END_CLIENT_TICK.register(TradeCompassClient::tick);
@@ -95,6 +99,16 @@ public final class TradeCompassClient implements ClientModInitializer {
     public static void save() {
         if (storage != null) {
             storage.save(database);
+        }
+    }
+
+    public static TradeCompassSettings settings() {
+        return settings;
+    }
+
+    public static void saveSettings() {
+        if (storage != null) {
+            storage.saveSettings(settings);
         }
     }
 
