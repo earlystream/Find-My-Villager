@@ -14,69 +14,57 @@
       style="image-rendering: pixelated;"
     />
   </a>
-</p>
 
+  <a href="https://www.curseforge.com/members/earlystream/projects">
+    <img
+      src="https://cdn.modrinth.com/data/cached_images/46f03a0afcdb64ea549e111a7a87e2bbc00f24c1_0.webp"
+      alt="CurseForge profile"
+      width="60"
+      height="64"
+      style="image-rendering: pixelated;"
+    />
+  </a>
+</p>
 
 # Find My Villager
 
-**Ctrl+F for your trading hall.** Find any villager trade you've seen before — search by item, navigate to the villager, and never lose a good trade again.
+**Ctrl+F for your trading hall.** Find any villager trade you've seen before, navigate straight to them, and never lose a good librarian again.
 
 ---
 
-## How it works
+## What it does
 
-1. Open any villager or wandering trader's trade screen as normal — Find My Villager silently records their offers.
-2. Press **V** to open the search UI.
-3. Type what you're looking for (`mending`, `diamond`, `silk`, anything).
-4. Click a trade to set it as your target — a HUD compass shows the direction and distance to that villager.
-5. The targeted villager glows so you can spot them the moment they're on screen.
+Every time you open a villager's trade screen, Find My Villager silently records their offers. Later, press **V** to open the search UI and type anything an item name, enchantment, or profession. Pick a trade, and a HUD compass points you straight to that villager with a live distance readout. The targeted villager glows the moment they're visible.
 
-Your last selected villager and trade are remembered when you close and reopen the UI.
+No commands. No markers to place. Just open villagers as normal and the mod does the rest.
 
 ---
 
 ## Features
 
-- **Instant search** across every villager you've ever opened in the current world
-- **Per-trade targeting** — select the exact trade you want, not just the villager
-- **Live position tracking** — the compass follows the villager as they move, not just their workstation
-- **Glow highlight** on the targeted villager
-- **Stock status** — see at a glance whether a trade is in stock or sold out
-- **Delete / Clear All** with confirmation — remove individual villagers or wipe the whole list
-- **Client-side only** — no server mod required, no packets sent, no trades automated
-- Saves data locally under `config/tradecompass/worlds/`
+- **Search your whole trading hall** by item name, enchantment, or profession
+- **Target a specific trade** — not just the villager, the exact offer you want
+- **Live compass + distance** on your HUD pointing to the villager (follows them as they move)
+- **Glow effect** highlights the targeted villager through walls and crowds
+- **Stock indicator** — see whether each trade is available or sold out before you walk over
+- **Remembers your last selection** when you close and reopen the UI
+- **Delete or Clear All** — deletes a trade/clears the list
+- **Client-side only** — works on any server, no server mod needed
 
 ---
 
-## Supported versions
+## How to use
 
-| Minecraft | Loader |
-|-----------|--------|
-| 1.21.11   | Fabric |
-| 26.1      | Fabric |
-| 26.1.1    | Fabric |
-| 26.1.2    | Fabric |
+1. Open any villager trade screen as you normally would
+2. Press **V** (rebindable) to open Find My Villager
+3. Search for an item or profession
+4. **Click a trade card** to target that villager
+5. Follow the compass on your HUD
 
----
-
-## Building
-
-```sh
-./gradlew build
-```
-
-Output JARs are written to each version's `build/libs/` directory.
-
-| Version folder | Minecraft | Java |
-|----------------|-----------|------|
-| `versions/1.21.11` | 1.21.11 | 21 |
-| `versions/26.1`    | 26.1    | 25 |
-| `versions/26.1.1`  | 26.1.1  | 25 |
-| `versions/26.1.2`  | 26.1.2  | 25 |
-| `versions/26.1.x`  | >=26.1.1 <=26.1.2 (range build) | 25 |
 
 ---
 
-## License
 
-[MPL-2.0](LICENSE)
+## Client-side & privacy
+
+This mod stores data locally in `config/tradecompass/worlds/`. It does not send any packets, does not require a server-side install, and does not automate or modify trades in any way.
