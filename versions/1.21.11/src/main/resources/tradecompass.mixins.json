@@ -3,6 +3,7 @@
   "package": "com.earlystream.tradecompass.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "EntityGlowAccessor",
     "MerchantMenuMixin",
     "MultiPlayerGameModeMixin"
   ],

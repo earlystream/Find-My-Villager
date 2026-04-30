@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,6 +16,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MultiPlayerGameModeMixin {
     @Inject(method = "interact", at = @At("HEAD"))
     private void tradecompass$rememberMerchant(Player player, Entity entity, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        MerchantInteractionTracker.remember(entity);
+    }
+
+    @Inject(method = "interactAt", at = @At("HEAD"))
+    private void tradecompass$rememberMerchantAt(Player player, Entity entity, EntityHitResult hitResult, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         MerchantInteractionTracker.remember(entity);
     }
 }

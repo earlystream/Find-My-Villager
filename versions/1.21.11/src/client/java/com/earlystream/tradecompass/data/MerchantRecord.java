@@ -13,6 +13,8 @@ public class MerchantRecord {
     private String entityType = "Unknown merchant";
     private String professionId = "";
     private String profession = "Unknown";
+    private String detectedName = "";
+    private String manualName = "";
     private String level = "";
     private int levelNumber;
     private int villagerXp;
@@ -72,6 +74,40 @@ public class MerchantRecord {
 
     public void profession(String profession) {
         this.profession = blankDefault(profession, "Unknown");
+    }
+
+    public String detectedName() {
+        return detectedName == null ? "" : detectedName;
+    }
+
+    public void detectedName(String detectedName) {
+        this.detectedName = cleanName(detectedName);
+    }
+
+    public String manualName() {
+        return manualName == null ? "" : manualName;
+    }
+
+    public void manualName(String manualName) {
+        this.manualName = cleanName(manualName);
+    }
+
+    public String villagerName() {
+        String manual = manualName();
+        if (!manual.isBlank()) {
+            return manual;
+        }
+        return detectedName();
+    }
+
+    public boolean hasVillagerName() {
+        return !villagerName().isBlank();
+    }
+
+    public void copyManualNameFrom(MerchantRecord existing) {
+        if (existing != null && !existing.manualName().isBlank()) {
+            manualName(existing.manualName());
+        }
     }
 
     public String level() {
@@ -191,14 +227,24 @@ public class MerchantRecord {
     }
 
     public boolean matches(String normalizedQuery) {
+        return matches(normalizedQuery, true);
+    }
+
+    public boolean matches(String normalizedQuery, boolean includeVillagerNames) {
         if (normalizedQuery == null || normalizedQuery.isBlank()) {
             return true;
         }
-        return profession.toLowerCase(Locale.ROOT).contains(normalizedQuery)
+        boolean baseMatches = profession.toLowerCase(Locale.ROOT).contains(normalizedQuery)
                 || entityType.toLowerCase(Locale.ROOT).contains(normalizedQuery)
                 || readableLevelName().toLowerCase(Locale.ROOT).contains(normalizedQuery)
                 || dimension.toLowerCase(Locale.ROOT).contains(normalizedQuery)
                 || coordinatesText().toLowerCase(Locale.ROOT).contains(normalizedQuery);
+        if (baseMatches) {
+            return true;
+        }
+        return includeVillagerNames
+                && (detectedName().toLowerCase(Locale.ROOT).contains(normalizedQuery)
+                || manualName().toLowerCase(Locale.ROOT).contains(normalizedQuery));
     }
 
     public String coordinatesText() {
@@ -234,6 +280,14 @@ public class MerchantRecord {
         return profession + " - " + readableLevel;
     }
 
+    public String namedProfessionText() {
+        String name = villagerName();
+        if (name.isBlank()) {
+            return profession;
+        }
+        return name + " — " + profession;
+    }
+
     public String readableLevelName() {
         if (level != null && !level.isBlank()) {
             return level;
@@ -254,5 +308,13 @@ public class MerchantRecord {
 
     private static String blankDefault(String value, String fallback) {
         return value == null || value.isBlank() ? fallback : value;
+    }
+
+    private static String cleanName(String value) {
+        if (value == null) {
+            return "";
+        }
+        String cleaned = value.trim();
+        return cleaned.length() > 80 ? cleaned.substring(0, 80) : cleaned;
     }
 }

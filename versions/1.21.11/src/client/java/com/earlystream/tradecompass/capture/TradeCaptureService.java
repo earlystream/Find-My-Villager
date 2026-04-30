@@ -23,35 +23,56 @@ public final class TradeCaptureService {
     private static int lastCapturedOfferCount = -1;
     private static int lastCapturedOfferSignature = 0;
 
+    private static MerchantMenu pendingMenu = null;
+    private static MerchantOffers pendingOffers = null;
+    private static long pendingMarkedMs = 0;
+    private static final long DEBOUNCE_MS = 250;
+
     private TradeCaptureService() {
     }
 
     public static void tick(Minecraft client) {
-        if (!(client.screen instanceof MerchantScreen merchantScreen)) {
+        if (!(client.screen instanceof MerchantScreen)) {
             lastCapturedMenu = -1;
             lastCapturedOfferCount = -1;
             lastCapturedOfferSignature = 0;
+            pendingMenu = null;
+            pendingOffers = null;
             return;
         }
-        MerchantMenu menu = merchantScreen.getMenu();
-        MerchantOffers offers = menu.getOffers();
-        captureMenu(client, menu, offers);
+        if (pendingMenu != null && System.currentTimeMillis() - pendingMarkedMs >= DEBOUNCE_MS) {
+            MerchantMenu menu = pendingMenu;
+            MerchantOffers offers = pendingOffers;
+            pendingMenu = null;
+            pendingOffers = null;
+            int menuIdentity = System.identityHashCode(menu);
+            int offerCount = offers == null ? 0 : offers.size();
+            int offerSignature = offerSignature(offers);
+            if (offerCount > 0 && !(menuIdentity == lastCapturedMenu && offerCount == lastCapturedOfferCount && offerSignature == lastCapturedOfferSignature)) {
+                lastCapturedMenu = menuIdentity;
+                lastCapturedOfferCount = offerCount;
+                lastCapturedOfferSignature = offerSignature;
+                capture(client, menu, offers);
+            }
+        }
     }
 
     public static void captureMenu(Minecraft client, MerchantMenu menu, MerchantOffers offers) {
         if (client == null || menu == null) {
             return;
         }
-        int menuIdentity = System.identityHashCode(menu);
         int offerCount = offers == null ? 0 : offers.size();
-        int offerSignature = offerSignature(offers);
-        if (offerCount <= 0 || (menuIdentity == lastCapturedMenu && offerCount == lastCapturedOfferCount && offerSignature == lastCapturedOfferSignature)) {
+        if (offerCount <= 0) {
             return;
         }
-        lastCapturedMenu = menuIdentity;
-        lastCapturedOfferCount = offerCount;
-        lastCapturedOfferSignature = offerSignature;
-        capture(client, menu, offers);
+        int menuIdentity = System.identityHashCode(menu);
+        int offerSignature = offerSignature(offers);
+        if (menuIdentity == lastCapturedMenu && offerCount == lastCapturedOfferCount && offerSignature == lastCapturedOfferSignature) {
+            return;
+        }
+        pendingMenu = menu;
+        pendingOffers = offers;
+        pendingMarkedMs = System.currentTimeMillis();
     }
 
     private static void capture(Minecraft client, MerchantMenu menu, MerchantOffers offers) {
@@ -80,6 +101,7 @@ public final class TradeCaptureService {
             record.entityType(pending.entityType());
             record.professionId(pending.professionId());
             record.profession(pending.profession());
+            record.detectedName(pending.detectedName());
             record.level(pending.level());
             record.levelNumber(pending.levelNumber());
             record.villagerXp(pending.villagerXp());
