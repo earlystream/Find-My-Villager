@@ -6,6 +6,7 @@ public record PendingMerchantInteraction(
         String entityType,
         String professionId,
         String profession,
+        String detectedName,
         String level,
         int levelNumber,
         int villagerXp,
