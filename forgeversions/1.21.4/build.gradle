@@ -1,0 +1,70 @@
+plugins {
+    id "net.minecraftforge.gradle" version "[6.0,6.2)"
+    id "maven-publish"
+}
+
+group = "com.earlystream"
+version = "0.1.0+1.21.4-forge"
+
+base {
+    archivesName = "tradecompass"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+minecraft {
+    mappings channel: "official", version: "1.21.4"
+
+    runs {
+        client {
+            workingDirectory project.file("run")
+            property "forge.logging.console.level", "debug"
+            mods {
+                tradecompass {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://maven.minecraftforge.net" }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:1.21.4-54.1.16"
+
+    implementation "com.google.code.gson:gson:2.11.0"
+    annotationProcessor "org.spongepowered:mixin:0.8.7:processor"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = "UTF-8"
+    options.compilerArgs += [
+        "-AoutRefMapFile=${layout.buildDirectory.file("tmp/compileJava/compileJava-refmap/tradecompass.refmap.json").get().asFile}"
+    ]
+}
+
+processResources {
+    inputs.property "version", project.version
+    from(layout.buildDirectory.file("tmp/compileJava/compileJava-refmap/tradecompass.refmap.json")) {
+        into ""
+    }
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    manifest {
+        attributes "MixinConfigs": "tradecompass.mixins.json"
+    }
+}
