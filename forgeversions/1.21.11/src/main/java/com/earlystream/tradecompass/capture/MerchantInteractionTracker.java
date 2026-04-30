@@ -22,6 +22,7 @@ public final class MerchantInteractionTracker {
                 MerchantTextUtil.entityTypeName(entity),
                 MerchantTextUtil.professionId(entity),
                 MerchantTextUtil.professionName(entity),
+                MerchantTextUtil.villagerCustomName(entity),
                 MerchantTextUtil.villagerLevel(entity),
                 MerchantTextUtil.villagerLevelNumber(entity),
                 MerchantTextUtil.villagerXp(entity),
