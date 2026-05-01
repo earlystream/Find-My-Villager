@@ -1,0 +1,69 @@
+plugins {
+    id "net.neoforged.moddev" version "2.0.141"
+    id "maven-publish"
+}
+
+group = "com.earlystream"
+version = "0.3.0+1.21.1-neoforge"
+
+base {
+    archivesName = "tradecompass"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+neoForge {
+    version = "21.1.228"
+    validateAccessTransformers = true
+    runs {
+        client {
+            client()
+            gameDirectory = project.file("run")
+        }
+    }
+
+    mods {
+        tradecompass {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://maven.neoforged.net/releases" }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.google.code.gson:gson:2.10.1"
+    annotationProcessor "org.spongepowered:mixin:0.8.7:processor"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = "UTF-8"
+    options.compilerArgs += [
+        "-AoutRefMapFile=${layout.buildDirectory.file("tmp/compileJava/compileJava-refmap/tradecompass.refmap.json").get().asFile}"
+    ]
+}
+
+processResources {
+    inputs.property "version", project.version
+    from(layout.buildDirectory.file("tmp/compileJava/compileJava-refmap/tradecompass.refmap.json")) {
+        into ""
+    }
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    manifest {
+        attributes "MixinConfigs": "tradecompass.mixins.json"
+    }
+}
