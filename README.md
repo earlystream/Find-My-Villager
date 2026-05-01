@@ -32,39 +32,98 @@
 
 ---
 
-## What it does
+## What It Does
 
-Every time you open a villager's trade screen, Find My Villager silently records their offers. Later, press **V** to open the search UI and type anything an item name, enchantment, or profession. Pick a trade, and a HUD compass points you straight to that villager with a live distance readout. The targeted villager glows the moment they're visible.
+Every time you open a villager's trade screen, Find My Villager quietly records their offers for the current world or server. Later, press **V** to open the search UI and type an item name, enchantment, profession, villager name, or other saved detail.
 
-No commands. No markers to place. Just open villagers as normal and the mod does the rest.
+Pick a result, and a HUD compass points you straight to that villager with a live distance readout. The targeted villager glows the moment they're visible.
+
+No commands. No markers to place. No server install. Just open villagers as normal and the mod does the rest.
 
 ---
 
 ## Features
 
-- **Search your whole trading hall** by item name, enchantment, or profession
+- **Search your trading hall** by item name, enchantment, profession, villager name, or location
 - **Target a specific trade** — not just the villager, the exact offer you want
-- **Live compass + distance** on your HUD pointing to the villager (follows them as they move)
-- **Glow effect** highlights the targeted villager through walls and crowds
-- **Stock indicator** — see whether each trade is available or sold out before you walk over
-- **Remembers your last selection** when you close and reopen the UI
-- **Delete or Clear All** — deletes a trade/clears the list
-- **Client-side only** — works on any server, no server mod needed
+- **Live compass + distance** on your HUD pointing to the villager
+- **Glow highlight** for the targeted villager through walls and crowds
+- **Stock indicator** showing whether each trade is available or sold out
+- **Favorite villagers** with star icons and favorite-first sorting
+- **Custom villager names** so important traders are easier to recognize
+- **Villager detail panel** with trades, level progress, location, and last-seen status
+- **Delete or Clear All** to remove saved villagers from the active database
+- **Client-side only** — works on servers without requiring a server-side mod
 
 ---
 
-## How to use
+## Data Tools
 
-1. Open any villager trade screen as you normally would
-2. Press **V** (rebindable) to open Find My Villager
-3. Search for an item or profession
-4. **Click a trade card** to target that villager
-5. Follow the compass on your HUD
+Find My Villager includes a Data Manager screen for local saved databases.
 
+- **Export JSON** for the current world/server database
+- **Import JSON** with validation and safe merge behavior
+- **Automatic backup before import**
+- **Backup Now** for manual snapshots
+- **Database stats** for villagers, trades, favorites, known databases, and last backup
+- **Reset Current Database** with confirmation
+- **Safer writes** using temporary files before replacing saved data
+
+Backups, exports, and imports are stored under the mod's local config data folder.
 
 ---
 
+## How To Use
 
-## Client-side & privacy
+1. Open any villager or wandering trader trade screen as you normally would.
+2. Press **V** to open Find My Villager.
+3. Search for an item, enchantment, profession, or villager name.
+4. Click a trade card to target that villager.
+5. Follow the compass on your HUD.
+6. Click the star icon to favorite important villagers.
+7. Open **Data** to export, import, back up, or reset the active database.
 
-This mod stores data locally in `config/tradecompass/worlds/`. It does not send any packets, does not require a server-side install, and does not automate or modify trades in any way.
+---
+
+## Client-Side & Privacy
+
+This mod stores data locally in `config/tradecompass/`.
+
+World/server databases are stored under:
+
+```text
+config/tradecompass/worlds/
+```
+
+The mod does not send packets, does not require a server-side install, and does not automate or modify trades.
+
+---
+
+## Supported Versions
+
+| Minecraft | Fabric | Forge |
+|-----------|--------|-------|
+| 1.21.1    | Yes    | Yes   |
+| 1.21.4    | Yes    | Yes   |
+| 1.21.8    | Yes    | Yes   |
+| 1.21.11   | Yes    | Yes   |
+| 26.1      | Yes    | No    |
+| 26.1.1    | Yes    | Yes   |
+| 26.1.2    | Yes    | Yes   |
+
+---
+
+## Building
+
+Build individual version folders with their Gradle wrapper or with the root wrapper when the included builds are available.
+
+Fabric source folders are under `versions/`.
+Forge source folders are under `forgeversions/`.
+
+Output JARs are written to each version's `build/libs/` directory.
+
+---
+
+## License
+
+[MPL-2.0](LICENSE)
