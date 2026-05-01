@@ -15,6 +15,7 @@ public class MerchantRecord {
     private String profession = "Unknown";
     private String detectedName = "";
     private String manualName = "";
+    private boolean favorite;
     private String level = "";
     private int levelNumber;
     private int villagerXp;
@@ -53,7 +54,7 @@ public class MerchantRecord {
     }
 
     public String entityType() {
-        return entityType;
+        return blankDefault(entityType, "Unknown merchant");
     }
 
     public void entityType(String entityType) {
@@ -69,7 +70,7 @@ public class MerchantRecord {
     }
 
     public String profession() {
-        return profession;
+        return blankDefault(profession, "Unknown");
     }
 
     public void profession(String profession) {
@@ -92,6 +93,18 @@ public class MerchantRecord {
         this.manualName = cleanName(manualName);
     }
 
+    public boolean favorite() {
+        return favorite;
+    }
+
+    public void favorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public void toggleFavorite() {
+        favorite = !favorite;
+    }
+
     public String villagerName() {
         String manual = manualName();
         if (!manual.isBlank()) {
@@ -110,8 +123,18 @@ public class MerchantRecord {
         }
     }
 
+    public void copyUserFieldsFrom(MerchantRecord existing) {
+        if (existing == null) {
+            return;
+        }
+        copyManualNameFrom(existing);
+        if (existing.favorite()) {
+            favorite(true);
+        }
+    }
+
     public String level() {
-        return level;
+        return level == null ? "" : level;
     }
 
     public void level(String level) {
@@ -154,7 +177,7 @@ public class MerchantRecord {
     }
 
     public String dimension() {
-        return dimension;
+        return dimension == null ? "" : dimension;
     }
 
     public void dimension(String dimension) {
@@ -234,10 +257,10 @@ public class MerchantRecord {
         if (normalizedQuery == null || normalizedQuery.isBlank()) {
             return true;
         }
-        boolean baseMatches = profession.toLowerCase(Locale.ROOT).contains(normalizedQuery)
-                || entityType.toLowerCase(Locale.ROOT).contains(normalizedQuery)
+        boolean baseMatches = profession().toLowerCase(Locale.ROOT).contains(normalizedQuery)
+                || entityType().toLowerCase(Locale.ROOT).contains(normalizedQuery)
                 || readableLevelName().toLowerCase(Locale.ROOT).contains(normalizedQuery)
-                || dimension.toLowerCase(Locale.ROOT).contains(normalizedQuery)
+                || dimension().toLowerCase(Locale.ROOT).contains(normalizedQuery)
                 || coordinatesText().toLowerCase(Locale.ROOT).contains(normalizedQuery);
         if (baseMatches) {
             return true;
@@ -275,22 +298,22 @@ public class MerchantRecord {
     public String professionLevelText() {
         String readableLevel = readableLevelName();
         if (readableLevel.isBlank()) {
-            return profession;
+            return profession();
         }
-        return profession + " - " + readableLevel;
+        return profession() + " - " + readableLevel;
     }
 
     public String namedProfessionText() {
         String name = villagerName();
         if (name.isBlank()) {
-            return profession;
+            return profession();
         }
-        return name + " — " + profession;
+        return name + " — " + profession();
     }
 
     public String readableLevelName() {
-        if (level != null && !level.isBlank()) {
-            return level;
+        if (!level().isBlank()) {
+            return level();
         }
         return levelName(levelNumber);
     }
