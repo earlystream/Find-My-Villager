@@ -107,6 +107,10 @@ public final class TradeCompassMod {
         return database;
     }
 
+    public static TradeCompassStorage storage() {
+        return storage;
+    }
+
     public static String loadedWorldKey() {
         return loadedWorldKey;
     }
@@ -115,6 +119,24 @@ public final class TradeCompassMod {
         if (storage != null) {
             storage.save(database);
         }
+    }
+
+    public static void replaceDatabase(WorldTradeDatabase newDatabase) {
+        if (newDatabase == null) {
+            return;
+        }
+        if (loadedWorldKey != null && !loadedWorldKey.isBlank()) {
+            newDatabase.worldKey(loadedWorldKey);
+        }
+        database = newDatabase;
+        selectedResult = null;
+        save();
+    }
+
+    public static void resetCurrentDatabase() {
+        WorldTradeDatabase empty = new WorldTradeDatabase();
+        empty.worldKey(loadedWorldKey);
+        replaceDatabase(empty);
     }
 
     public static TradeCompassSettings settings() {
@@ -150,5 +172,10 @@ public final class TradeCompassMod {
 
     public static String modName() {
         return TradeCompassConfig.MOD_NAME;
+    }
+
+
+    public static String modVersion() {
+        return "0.3.0+1.21.11-forge";
     }
 }

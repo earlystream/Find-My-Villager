@@ -37,6 +37,10 @@ import java.util.Map;
 
 public class TradeCompassScreen extends Screen {
     private static final int ROW_HEIGHT = 92;
+    private static final String STAR_EMPTY = "☆";
+    private static final String STAR_FILLED = "★";
+    private static final int STAR_GOLD = 0xFFFFD45A;
+    private static final int STAR_EMPTY_COLOR = 0xFF8A8A8A;
     private static String lastSelectedMerchantKey = null;
     private static int lastSelectedTradeIndex = 0;
     private EditBox searchBox;
@@ -60,9 +64,10 @@ public class TradeCompassScreen extends Screen {
 
     @Override
     protected void init() {
-        searchBox = new EditBox(font, 18, 24, Math.max(120, width - 290), 20, Component.literal("Search trades"));
+        searchBox = new EditBox(font, 18, 24, Math.max(120, width - 352), 20, Component.literal("Search trades"));
         searchBox.setResponder(value -> refreshResults());
         addRenderableWidget(searchBox);
+        addRenderableWidget(Button.builder(Component.literal("Data"), button -> Minecraft.getInstance().setScreen(new DataManagerScreen(this))).bounds(width - 322, 24, 56, 20).build());
         toggleNamesButton = addRenderableWidget(Button.builder(Component.empty(), button -> toggleVillagerNames()).bounds(width - 260, 24, 64, 20).build());
         updateToggleNamesButton();
         addRenderableWidget(Button.builder(Component.literal("Clear Target"), button -> TradeCompassMod.clearSelected()).bounds(width - 190, 24, 82, 20).build());
@@ -137,6 +142,7 @@ public class TradeCompassScreen extends Screen {
             graphics.fill(14, y, 17, y + ROW_HEIGHT - 4, levelAccentColor(result.merchant().levelNumber()));
             graphics.fill(17, y + ROW_HEIGHT - 5, listRight, y + ROW_HEIGHT - 4, 0x25FFFFFF);
             renderRowText(graphics, result, y, now);
+            renderFavoriteStar(graphics, result.merchant(), rowStarX(), y + 8);
             renderAvatar(graphics, result.merchant(), 24, y + 10, 40);
         }
         if (results.size() > visibleRows) {
@@ -208,6 +214,7 @@ public class TradeCompassScreen extends Screen {
         long now = System.currentTimeMillis();
         graphics.fill(left, top, right, top + 126, 0x20FFFFFF);
         graphics.drawString(font, detailsTitle(merchant), left + 70, top + 12, 0xFFFFFFFF, false);
+        renderFavoriteStar(graphics, merchant, right - 24, top + 10);
         graphics.drawString(font, merchant.levelProgressText(), left + 70, top + 26, 0xFFD0D0D0, false);
         renderLevelProgressBar(graphics, merchant, left + 70, top + 40, Math.max(60, right - left - 86));
         graphics.drawString(font, merchant.status(now) + " - " + distanceText(selected), left + 70, top + 52, 0xFFB8D7FF, false);
@@ -379,6 +386,16 @@ public class TradeCompassScreen extends Screen {
         return Math.min(width - 190, Math.max(360, (int) (width * 0.62F)));
     }
 
+    private int rowStarX() {
+        return listRight() - 22;
+    }
+
+    private void renderFavoriteStar(GuiGraphics graphics, MerchantRecord merchant, int x, int y) {
+        String star = merchant.favorite() ? STAR_FILLED : STAR_EMPTY;
+        int color = merchant.favorite() ? STAR_GOLD : STAR_EMPTY_COLOR;
+        graphics.drawString(font, star, x, y, color, false);
+    }
+
     private void renderLevelProgressBar(GuiGraphics graphics, MerchantRecord merchant, int x, int y, int width) {
         int percent = merchant.levelProgressPercent();
         if (percent < 0 || percent >= 100 || merchant.levelNumber() >= 5) {
@@ -535,6 +552,10 @@ public class TradeCompassScreen extends Screen {
         int right = width - 14;
         int listTop = detailsTradeListTop();
         int listBottom = height - 24;
+        if (selectedIndex >= 0 && selectedIndex < results.size() && detailsStarHit(event.x(), event.y(), left, right)) {
+            toggleFavorite(results.get(selectedIndex).merchant());
+            return true;
+        }
         if (event.x() > left && event.x() < right && event.y() >= listTop && event.y() < listBottom
                 && selectedIndex >= 0 && selectedIndex < results.size()) {
             int tradeIndex = detailsScrollOffset + ((int) event.y() - listTop) / 36;
@@ -550,6 +571,13 @@ public class TradeCompassScreen extends Screen {
         }
         int index = event.x() <= listRight() ? rowIndex(event.y()) : -1;
         if (index >= 0 && index < results.size()) {
+            if (rowStarHit(event.x(), event.y(), index)) {
+                selectedIndex = index;
+                selectedTradeIndex = 0;
+                detailsScrollOffset = 0;
+                toggleFavorite(results.get(index).merchant());
+                return true;
+            }
             if (index != selectedIndex) {
                 selectedTradeIndex = 0;
                 detailsScrollOffset = 0;
@@ -560,6 +588,35 @@ public class TradeCompassScreen extends Screen {
             return true;
         }
         return false;
+    }
+
+    private boolean rowStarHit(double mouseX, double mouseY, int resultIndex) {
+        int row = resultIndex - scrollOffset;
+        if (row < 0) {
+            return false;
+        }
+        int y = 54 + row * ROW_HEIGHT;
+        int x = rowStarX();
+        return mouseX >= x - 6 && mouseX <= x + 16 && mouseY >= y + 2 && mouseY <= y + 24;
+    }
+
+    private boolean detailsStarHit(double mouseX, double mouseY, int left, int right) {
+        if (left > width - 170) {
+            return false;
+        }
+        int x = right - 24;
+        int y = 54 + 10;
+        return mouseX >= x - 6 && mouseX <= x + 16 && mouseY >= y - 4 && mouseY <= y + 18;
+    }
+
+    private void toggleFavorite(MerchantRecord merchant) {
+        if (merchant == null) {
+            return;
+        }
+        merchant.toggleFavorite();
+        lastSelectedMerchantKey = merchant.merchantKey();
+        TradeCompassMod.save();
+        refreshResults();
     }
 
     @Override
@@ -687,4 +744,3 @@ public class TradeCompassScreen extends Screen {
         return 54 + 148;
     }
 }
-

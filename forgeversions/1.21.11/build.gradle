@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.earlystream"
-version = "0.1.0+1.21.11-forge"
+version = "0.3.0+1.21.11-forge"
 
 base {
     archivesName = "tradecompass"
