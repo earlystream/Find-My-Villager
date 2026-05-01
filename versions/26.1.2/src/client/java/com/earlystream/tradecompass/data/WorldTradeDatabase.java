@@ -38,7 +38,17 @@ public class WorldTradeDatabase {
         if (merchants == null) {
             merchants = new LinkedHashMap<>();
         }
-        record.copyManualNameFrom(merchants.get(record.merchantKey()));
+        record.copyUserFieldsFrom(merchants.get(record.merchantKey()));
+        merchants.put(record.merchantKey(), record);
+    }
+
+    public void put(MerchantRecord record) {
+        if (record == null || record.merchantKey().isBlank()) {
+            return;
+        }
+        if (merchants == null) {
+            merchants = new LinkedHashMap<>();
+        }
         merchants.put(record.merchantKey(), record);
     }
 
@@ -57,10 +67,16 @@ public class WorldTradeDatabase {
     }
 
     public int size() {
+        if (merchants == null) {
+            merchants = new LinkedHashMap<>();
+        }
         return merchants.size();
     }
 
     public ArrayList<MerchantRecord> merchantList() {
+        if (merchants == null) {
+            merchants = new LinkedHashMap<>();
+        }
         return new ArrayList<>(merchants.values());
     }
 }
