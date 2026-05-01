@@ -1,0 +1,15 @@
+{
+  "minVersion": "0.8.7",
+  "required": true,
+  "package": "com.earlystream.tradecompass.mixin",
+  "refmap": "tradecompass.refmap.json",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "EntityGlowAccessor",
+    "MerchantMenuMixin",
+    "MultiPlayerGameModeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
