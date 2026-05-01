@@ -92,6 +92,10 @@ public final class TradeCompassClient implements ClientModInitializer {
         return database;
     }
 
+    public static TradeCompassStorage storage() {
+        return storage;
+    }
+
     public static String loadedWorldKey() {
         return loadedWorldKey;
     }
@@ -100,6 +104,24 @@ public final class TradeCompassClient implements ClientModInitializer {
         if (storage != null) {
             storage.save(database);
         }
+    }
+
+    public static void replaceDatabase(WorldTradeDatabase newDatabase) {
+        if (newDatabase == null) {
+            return;
+        }
+        if (loadedWorldKey != null && !loadedWorldKey.isBlank()) {
+            newDatabase.worldKey(loadedWorldKey);
+        }
+        database = newDatabase;
+        selectedResult = null;
+        save();
+    }
+
+    public static void resetCurrentDatabase() {
+        WorldTradeDatabase empty = new WorldTradeDatabase();
+        empty.worldKey(loadedWorldKey);
+        replaceDatabase(empty);
     }
 
     public static TradeCompassSettings settings() {
@@ -131,5 +153,12 @@ public final class TradeCompassClient implements ClientModInitializer {
 
     public static String modName() {
         return TradeCompassConfig.MOD_NAME;
+    }
+
+    public static String modVersion() {
+        return FabricLoader.getInstance()
+                .getModContainer(TradeCompassConfig.MOD_ID)
+                .map(container -> container.getMetadata().getVersion().getFriendlyString())
+                .orElse("unknown");
     }
 }
