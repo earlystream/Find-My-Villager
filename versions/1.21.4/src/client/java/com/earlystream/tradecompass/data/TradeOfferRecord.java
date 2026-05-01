@@ -18,6 +18,9 @@ public class TradeOfferRecord {
     private int specialPrice;
 
     public ItemStackRecord inputOne() {
+        if (inputOne == null) {
+            inputOne = ItemStackRecord.empty();
+        }
         return inputOne;
     }
 
@@ -26,6 +29,9 @@ public class TradeOfferRecord {
     }
 
     public ItemStackRecord inputTwo() {
+        if (inputTwo == null) {
+            inputTwo = ItemStackRecord.empty();
+        }
         return inputTwo;
     }
 
@@ -34,6 +40,9 @@ public class TradeOfferRecord {
     }
 
     public ItemStackRecord output() {
+        if (output == null) {
+            output = ItemStackRecord.empty();
+        }
         return output;
     }
 
@@ -42,6 +51,9 @@ public class TradeOfferRecord {
     }
 
     public List<String> outputEnchantments() {
+        if (outputEnchantments == null) {
+            outputEnchantments = new ArrayList<>();
+        }
         return outputEnchantments;
     }
 
@@ -99,21 +111,21 @@ public class TradeOfferRecord {
 
     public String priceText() {
         StringJoiner joiner = new StringJoiner(" + ");
-        if (!inputOne.isEmpty()) {
-            joiner.add(inputOne.priceText());
+        if (!inputOne().isEmpty()) {
+            joiner.add(inputOne().priceText());
         }
-        if (!inputTwo.isEmpty()) {
-            joiner.add(inputTwo.priceText());
+        if (!inputTwo().isEmpty()) {
+            joiner.add(inputTwo().priceText());
         }
         String value = joiner.toString();
         return value.isBlank() ? "Unknown price" : value;
     }
 
     public String displayOutputName() {
-        if (outputEnchantments.isEmpty()) {
-            return output.name();
+        if (outputEnchantments().isEmpty()) {
+            return output().name();
         }
-        return output.name() + " (" + String.join(", ", outputEnchantments) + ")";
+        return output().name() + " (" + String.join(", ", outputEnchantments()) + ")";
     }
 
     public String stockText() {
@@ -133,7 +145,7 @@ public class TradeOfferRecord {
     }
 
     public int availableOutputItems() {
-        return remainingUses() * Math.max(0, output.count());
+        return remainingUses() * Math.max(0, output().count());
     }
 
     public String availableOutputText() {
@@ -158,14 +170,14 @@ public class TradeOfferRecord {
         if ("cheap".equals(normalizedQuery) || "cheapest".equals(normalizedQuery)) {
             return true;
         }
-        if (output.matches(normalizedQuery) || inputOne.matches(normalizedQuery) || inputTwo.matches(normalizedQuery)) {
+        if (output().matches(normalizedQuery) || inputOne().matches(normalizedQuery) || inputTwo().matches(normalizedQuery)) {
             return true;
         }
         if (Integer.toString(currentPrice).equals(normalizedQuery) || priceText().toLowerCase(Locale.ROOT).contains(normalizedQuery)) {
             return true;
         }
-        for (String enchantment : outputEnchantments) {
-            if (enchantment.toLowerCase(Locale.ROOT).contains(normalizedQuery)) {
+        for (String enchantment : outputEnchantments()) {
+            if (enchantment != null && enchantment.toLowerCase(Locale.ROOT).contains(normalizedQuery)) {
                 return true;
             }
         }

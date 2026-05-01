@@ -39,10 +39,12 @@ public final class TradeSearchIndex {
             }
         }
         Comparator<GroupedSearchResult> comparator = Comparator
-                .comparingDouble((GroupedSearchResult result) -> result.distance() < 0 ? Double.MAX_VALUE : result.distance())
+                .comparing((GroupedSearchResult result) -> !result.merchant().favorite())
+                .thenComparingDouble(result -> result.distance() < 0 ? Double.MAX_VALUE : result.distance())
                 .thenComparing(result -> lowestCurrentPrice(result.matchingOffers()));
         if ("cheap".equals(normalized) || "cheapest".equals(normalized) || normalized.contains("cheap")) {
-            comparator = Comparator.comparingInt((GroupedSearchResult result) -> lowestCurrentPrice(result.matchingOffers()))
+            comparator = Comparator.comparing((GroupedSearchResult result) -> !result.merchant().favorite())
+                    .thenComparingInt(result -> lowestCurrentPrice(result.matchingOffers()))
                     .thenComparingDouble(result -> result.distance() < 0 ? Double.MAX_VALUE : result.distance());
         }
         results.sort(comparator);
