@@ -28,103 +28,151 @@
 
 # Find My Villager
 
-**Ctrl+F for your trading hall.** Find any villager trade you've seen before, navigate straight to them, and never lose a good librarian again.
+**Ctrl+F for your trading hall.**  
+Find any villager trade you've seen before, navigate straight to them, and never lose a good librarian again.
+
+Find My Villager remembers trades after you open a villager or wandering trader trade screen. Later, press **V** to search through saved villagers by item, enchantment, profession, villager name, location, or saved trade details.
+
+When you select a result, the mod points you back to that villager with a HUD compass and live distance readout. Once the villager is visible, they glow so you can find the correct one inside crowded trading halls.
+
+No commands. No manual markers. No server install.  
+Just open villagers normally and the mod keeps track of them locally.
+
+> **Need more details?**  
+> Read the [FAQ](https://github.com/earlystream/Find-My-Villager/blob/main/faq.md) for file names, privacy, multiplayer support, saved data, imports, backups, and common questions.
 
 ---
 
 ## What It Does
 
-Every time you open a villager's trade screen, Find My Villager quietly records their offers for the current world or server. Later, press **V** to open the search UI and type an item name, enchantment, profession, villager name, or other saved detail.
+Trading halls get messy fast.
 
-Pick a result, and a HUD compass points you straight to that villager with a live distance readout. The targeted villager glows the moment they're visible.
+You might remember that you had a **Mending** librarian somewhere, but not which villager it was. You might have dozens of farmers, armorers, clerics, librarians, or wandering traders saved across different worlds and servers.
 
-No commands. No markers to place. No server install. Just open villagers as normal and the mod does the rest.
+Find My Villager is made for that exact problem.
+
+The mod does not change how villagers work. You still discover trades normally by opening trade screens. The mod simply remembers what you have already seen and gives you a clean way to search it later.
 
 ---
 
 ## Features
 
-- **Search your trading hall** by item name, enchantment, profession, villager name, or location
-- **Target a specific trade** — not just the villager, the exact offer you want
-- **Live compass + distance** on your HUD pointing to the villager
-- **Glow highlight** for the targeted villager through walls and crowds
-- **Stock indicator** showing whether each trade is available or sold out
-- **Favorite villagers** with star icons and favorite-first sorting
-- **Custom villager names** so important traders are easier to recognize
-- **Villager detail panel** with trades, level progress, location, and last-seen status
-- **Delete or Clear All** to remove saved villagers from the active database
-- **Client-side only** — works on servers without requiring a server-side mod
-
----
-
-## Data Tools
-
-Find My Villager includes a Data Manager screen for local saved databases.
-
-- **Export JSON** for the current world/server database
-- **Import JSON** with validation and safe merge behavior
-- **Automatic backup before import**
-- **Backup Now** for manual snapshots
-- **Database stats** for villagers, trades, favorites, known databases, and last backup
-- **Reset Current Database** with confirmation
-- **Safer writes** using temporary files before replacing saved data
-
-Backups, exports, and imports are stored under the mod's local config data folder.
+- Search saved villagers by **item**, **enchantment**, **profession**, **villager name**, **location**, or saved trade data
+- Target a specific trade and follow a HUD compass back to the right villager
+- See a live distance readout while walking toward the target
+- Glow highlight for the selected villager when visible
+- Favorite important villagers so they appear first
+- Add custom names to saved villagers
+- View trade details, villager level progress, stock status, location, and last-seen info
+- Export, import, back up, reset, and manage local databases
+- Works client-side without needing anything installed on the server
 
 ---
 
 ## How To Use
 
-1. Open any villager or wandering trader trade screen as you normally would.
+1. Open a villager or wandering trader trade screen.
 2. Press **V** to open Find My Villager.
-3. Search for an item, enchantment, profession, or villager name.
-4. Click a trade card to target that villager.
-5. Follow the compass on your HUD.
-6. Click the star icon to favorite important villagers.
-7. Open **Data** to export, import, back up, or reset the active database.
+3. Search for an item, enchantment, profession, villager name, or location.
+4. Click the trade or villager you want to target.
+5. Follow the HUD compass.
+6. Look for the glow highlight when the villager is visible.
+7. Star important villagers as favorites if you want them easier to find later.
+
+---
+
+## Data Manager
+
+Find My Villager includes a Data Manager screen for saved databases.
+
+You can export your current world or server database as JSON, import another database, create backups, view database stats, reset the current database, and safely merge imported data.
+
+This is useful if you switch launchers, move worlds, test multiple Minecraft versions, or just want a backup before changing anything.
 
 ---
 
 ## Client-Side & Privacy
 
-This mod stores data locally in `config/tradecompass/`.
+Find My Villager is client-side only.
 
-World/server databases are stored under:
+It does not upload your data, does not automate trades, does not modify villager behavior, and does not require a server-side install.
+
+Saved data is stored locally in:
+
+```text
+config/tradecompass/
+```
+
+World and server databases are stored under:
 
 ```text
 config/tradecompass/worlds/
 ```
 
-The mod does not send packets, does not require a server-side install, and does not automate or modify trades.
+The `tradecompass` folder name is kept for compatibility with older versions of the mod.
 
 ---
 
 ## Supported Versions
 
-| Minecraft | Fabric | Forge |
-|-----------|--------|-------|
-| 1.21.1    | Yes    | Yes   |
-| 1.21.4    | Yes    | Yes   |
-| 1.21.8    | Yes    | Yes   |
-| 1.21.11   | Yes    | Yes   |
-| 26.1      | Yes    | No    |
-| 26.1.1    | Yes    | Yes   |
-| 26.1.2    | Yes    | Yes   |
+| Minecraft | Fabric | Forge | NeoForge |
+| --------- | :----: | :---: | :------: |
+| 1.21.1    | Yes    | Yes   | Yes      |
+| 1.21.4    | Yes    | Yes   | Yes      |
+| 1.21.8    | Yes    | Yes   | Yes      |
+| 1.21.11   | Yes    | Yes   | Yes      |
+| 26.1      | Yes    | No    | No       |
+| 26.1.1    | Yes    | Yes   | Yes      |
+| 26.1.2    | Yes    | Yes   | Yes      |
+| 26.1.x    | Yes    | No    | No       |
 
 ---
 
 ## Building
 
-Build individual version folders with their Gradle wrapper or with the root wrapper when the included builds are available.
+Build individual version folders with their Gradle wrapper, or use the root wrapper when the included builds are available.
 
-Fabric source folders are under `versions/`.
-Forge source folders are under `forgeversions/`.
+| Loader | Source Folder |
+| ------ | ------------- |
+| Fabric | `versions/` |
+| Forge | `forgeversions/` |
 
-Output JARs are written to each version's `build/libs/` directory.
+Built JARs are written to each version's:
+
+```text
+build/libs/
+```
+
+---
+
+## Project Notes
+
+Find My Villager was originally called **Trade Compass**.
+
+Because of that, some older JAR names, folders, config paths, or internal names may still use:
+
+```text
+tradecompass
+```
+
+This is normal and does not affect the mod.
+
+---
+
+## FAQ
+
+Common questions are answered here:
+
+[Read the FAQ](https://github.com/earlystream/Find-My-Villager/blob/main/faq.md)
 
 ---
 
 ## License
 
-[MPL-2.0](LICENSE)
+This project is licensed under **MPL-2.0**.
 
+See:
+
+```text
+LICENSE
+```
