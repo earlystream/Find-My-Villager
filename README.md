@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="https://modrinth.com/mod/find-my-villager>
+  <a href="https://modrinth.com/user/earlystream>
     <img
       src="https://cdn.modrinth.com/data/cached_images/2df5ae65196aa7a4a0aef20e208c0005ff06471f.png"
       alt="Modrinth profile"
-      style="image-rendering: pixelated;"
+      style="image-rendering: pixelate
     />
   </a>
 
