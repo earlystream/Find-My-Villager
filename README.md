@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://modrinth.com/user/earlystream">
+  <a href="https://modrinth.com/mod/find-my-villager>
     <img
       src="https://cdn.modrinth.com/data/cached_images/2df5ae65196aa7a4a0aef20e208c0005ff06471f.png"
       alt="Modrinth profile"
@@ -15,7 +15,7 @@
     />
   </a>
 
-  <a href="https://www.curseforge.com/members/earlystream/projects">
+  <a href="https://www.curseforge.com/minecraft/mc-mods/find-my-villager">
     <img
       src="https://cdn.modrinth.com/data/cached_images/46f03a0afcdb64ea549e111a7a87e2bbc00f24c1_0.webp"
       alt="CurseForge profile"
