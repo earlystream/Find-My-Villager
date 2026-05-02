@@ -30,6 +30,9 @@
 
 **Ctrl+F for your trading hall.** Find any villager trade you've seen before, navigate straight to them, and never lose a good librarian again.
 
+> **Note:** Some current JAR files may still be named `tradecompass-0.3.0+...jar`.
+> This is expected. The project was originally called **Trade Compass** before being renamed to **Find My Villager**. The file name does not affect the mod.
+
 ---
 
 ## What It Does
@@ -101,16 +104,16 @@ The mod does not send packets, does not require a server-side install, and does 
 
 ## Supported Versions
 
-| Minecraft |Fabric |Forge |NeoForge |
-| --------- |------ |----- |-------- |
-| 1.21.1    |Yes    |Yes   |Yes      |
-| 1.21.4    |Yes    |Yes   |Yes      |
-| 1.21.8    |Yes    |Yes   |Yes      |
-| 1.21.11   |Yes    |Yes   |Yes      |
-| 26.1      |Yes    |No    |No       |
-| 26.1.1    |Yes    |Yes   |Yes      |
-| 26.1.2    |Yes    |Yes   |Yes      |
-| 26.1.x    |Yes    |No    |No       |
+| Minecraft | Fabric | Forge | NeoForge |
+| --------- | ------ | ----- | -------- |
+| 1.21.1    | Yes    | Yes   | Yes      |
+| 1.21.4    | Yes    | Yes   | Yes      |
+| 1.21.8    | Yes    | Yes   | Yes      |
+| 1.21.11   | Yes    | Yes   | Yes      |
+| 26.1      | Yes    | No    | No       |
+| 26.1.1    | Yes    | Yes   | Yes      |
+| 26.1.2    | Yes    | Yes   | Yes      |
+| 26.1.x    | Yes    | No    | No       |
 
 ---
 
@@ -119,6 +122,7 @@ The mod does not send packets, does not require a server-side install, and does 
 Build individual version folders with their Gradle wrapper or with the root wrapper when the included builds are available.
 
 Fabric source folders are under `versions/`.
+
 Forge source folders are under `forgeversions/`.
 
 Output JARs are written to each version's `build/libs/` directory.
