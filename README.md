@@ -101,16 +101,16 @@ The mod does not send packets, does not require a server-side install, and does 
 
 ## Supported Versions
 
-| Minecraft | Fabric | Forge | NeoForge |
-|-----------|--------|-------|----------|
-| 1.21.1    | Yes    | Yes   | Yes      |
-| 1.21.4    | Yes    | Yes   | No       |
-| 1.21.8    | Yes    | Yes   | No       |
-| 1.21.11   | Yes    | Yes   | Yes      |
-| 26.1      | Yes    | No    | No       |
-| 26.1.1    | Yes    | Yes   | No       |
-| 26.1.2    | Yes    | Yes   | No       |
-| 26.1.x    | Yes    | No    | No       |
+| Minecraft |Fabric |Forge |NeoForge |
+| --------- |------ |----- |-------- |
+| 1.21.1    |Yes    |Yes   |Yes      |
+| 1.21.4    |Yes    |Yes   |Yes      |
+| 1.21.8    |Yes    |Yes   |Yes      |
+| 1.21.11   |Yes    |Yes   |Yes      |
+| 26.1      |Yes    |No    |No       |
+| 26.1.1    |Yes    |Yes   |Yes      |
+| 26.1.2    |Yes    |Yes   |Yes      |
+| 26.1.x    |Yes    |No    |No       |
 
 ---
 
