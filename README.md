@@ -1,16 +1,16 @@
 <p align="center">
-  <a href="https://modrinth.com/user/earlystream>
+  <a href="https://modrinth.com/mod/find-my-villager">
     <img
       src="https://cdn.modrinth.com/data/cached_images/2df5ae65196aa7a4a0aef20e208c0005ff06471f.png"
-      alt="Modrinth profile"
-      style="image-rendering: pixelate
+      alt="Modrinth"
+      style="image-rendering: pixelated;"
     />
   </a>
 
   <a href="https://github.com/earlystream/Find-My-Villager/">
     <img
       src="https://cdn.modrinth.com/data/cached_images/14bb5f6380dbf0e9a0bc20179ef4d9728b0f88d9.png"
-      alt="GitHub profile"
+      alt="GitHub"
       style="image-rendering: pixelated;"
     />
   </a>
@@ -18,7 +18,7 @@
   <a href="https://www.curseforge.com/minecraft/mc-mods/find-my-villager">
     <img
       src="https://cdn.modrinth.com/data/cached_images/46f03a0afcdb64ea549e111a7a87e2bbc00f24c1_0.webp"
-      alt="CurseForge profile"
+      alt="CurseForge"
       width="60"
       height="64"
       style="image-rendering: pixelated;"
