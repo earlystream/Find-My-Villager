@@ -1,0 +1,14 @@
+.gradle/
+build/
+versions/*/.gradle/
+versions/*/build/
+versions/*/run/
+.claude/
+
+# Cloudflare Worker / Wrangler
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
+node_modules/
