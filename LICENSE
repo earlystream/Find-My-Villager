@@ -2,118 +2,180 @@ Earlystream Source-Available License v1.0
 
 Copyright © 2026 earlystream. All rights reserved.
 
-This project, including its source code, compiled files, documentation, assets, icons, logos, branding, names, descriptions, screenshots, metadata, and related materials, is owned by earlystream unless otherwise stated.
+This project, including its source code, compiled files, documentation, assets, icons, logos, branding, names, descriptions, screenshots, metadata, build files, configuration files, and related materials, is owned by earlystream unless otherwise stated.
 
 This project is source-available for transparency, portfolio review, security review, compatibility review, educational reading, and contribution review only.
 
-1. Allowed Uses
+This project is not open source. Access to the source code does not grant permission to redistribute, reupload, publish modified builds, create clones, create unofficial continuations, or use the code in another project.
+
+1. Definitions
+
+For this license:
+
+“Project” means this repository, source code, compiled files, mod files, documentation, assets, icons, logos, branding, names, descriptions, screenshots, metadata, build files, configuration files, and related materials owned by earlystream.
+
+“Official Build” means a compiled version of the Project published by earlystream on an official earlystream-controlled page.
+
+“Official Project Page” means a Modrinth, CurseForge, GitHub, or other project page controlled by earlystream.
+
+“Redistribute” means to upload, mirror, rehost, publish, share, provide, package, bundle, cache, or otherwise make the Project, any compiled build, or any modified build available to another person, service, launcher, repository, platform, file host, Discord server, modpack archive, or download system.
+
+“Modified Build” means any compiled, packaged, or distributed version of the Project that differs from an Official Build.
+
+“Derivative Project” means a project based on, copied from, translated from, ported from, forked from, adapted from, or substantially derived from the Project’s source code, compiled files, assets, metadata, structure, implementation, or branding.
+
+“Personal Use” means private use by one individual on their own device, Minecraft instance, or private development environment. Personal Use does not include publishing, uploading, sharing, giving, selling, streaming download links, providing builds to friends, posting builds in Discord servers, or distributing builds through a launcher, modpack, repository, file host, or platform.
+
+“Official Dependency System” means Modrinth or CurseForge dependency/download handling that points users to the official earlystream-controlled project page without manually bundling, mirroring, rehosting, or redistributing the JAR.
+
+2. Allowed Uses
 
 You may:
 
-a. Download and use official builds of this project for personal gameplay.
+a. Download and use Official Builds of this Project for Personal Use.
 
-b. View and read the source code for learning, review, security inspection, compatibility work, and portfolio evaluation.
+b. View and read the source code for learning, review, security inspection, compatibility work, portfolio evaluation, and educational reading.
 
-c. Use this project in modpacks only by depending on or linking to the official Modrinth or CurseForge project pages, without rehosting, mirroring, or manually redistributing the mod file yourself.
+c. Use this Project in modpacks only through an Official Dependency System, without manually rehosting, mirroring, bundling, caching, or redistributing the mod file yourself.
 
-d. Create private local modifications for your own personal use only, as long as you do not publish, share, distribute, sell, upload, rehost, or provide those modifications to anyone else.
+d. Create private local modifications for your own Personal Use only, as long as you do not Redistribute, publish, upload, share, sell, rehost, provide access to, or otherwise make those modifications or Modified Builds available to anyone else.
 
-e. Fork the repository only for the purpose of submitting bug reports, pull requests, patches, compatibility fixes, or security fixes back to the official project.
+e. Fork the repository only for the limited purpose of preparing and submitting bug reports, pull requests, patches, compatibility fixes, or security fixes back to the official Project.
 
-2. Prohibited Uses
+f. Refer to the official Project by name when clearly identifying it as the official work of earlystream.
+
+3. Prohibited Uses
 
 You may not, without prior written permission from earlystream:
 
-a. Redistribute, reupload, mirror, rehost, or republish this project or any compiled JAR file.
+a. Redistribute, reupload, mirror, rehost, republish, bundle, cache, or otherwise provide this Project or any compiled JAR file.
 
-b. Publish modified builds, forked builds, renamed builds, unofficial ports, unofficial backports, unofficial update builds, or derivative versions.
+b. Publish Modified Builds, forked builds, renamed builds, unofficial ports, unofficial backports, unofficial update builds, unofficial continuations, or derivative versions.
 
-c. Upload this project or a modified version of it to Modrinth, CurseForge, GitHub Releases, Discord, forums, file hosts, modpack launchers, launcher CDNs, or any other distribution platform.
+c. Upload this Project or a modified version of it to Modrinth, CurseForge, GitHub Releases, Discord, forums, file hosts, modpack launchers, launcher CDNs, custom repositories, or any other distribution platform.
 
-d. Sell, sublicense, rent, monetize, bundle for paid access, or commercially distribute this project or any derivative work.
+d. Sell, sublicense, rent, monetize, bundle for paid access, include in paid packs, or commercially distribute this Project or any Derivative Project.
 
-e. Copy substantial parts of the source code into another project.
+e. Copy, translate, adapt, or reuse any non-trivial source file, class, method group, package structure, implementation logic, asset, metadata file, build script, configuration file, or distinctive project structure from the Project in another project.
 
-f. Use this project's source code, compiled files, assets, metadata, branding, or other protected material to create a competing clone, renamed copy, reupload, or substantially similar derivative project.
+f. Use the Project’s source code, compiled files, assets, metadata, branding, structure, implementation, or other protected material to create a competing clone, renamed copy, reupload, unofficial continuation, or substantially similar Derivative Project.
 
-g. Use the project name, mod ID, logo, icon, screenshots, branding, descriptions, or metadata to imply ownership, authorship, endorsement, partnership, or official status.
+g. Use the project name, mod ID, logo, icon, screenshots, branding, descriptions, metadata, or visual identity to imply ownership, authorship, endorsement, partnership, or official status.
 
-h. Remove, hide, alter, or misrepresent copyright notices, license notices, author names, credits, or links to the official project.
+h. Remove, hide, alter, or misrepresent copyright notices, license notices, author names, credits, official links, attribution notices, update metadata, official download links, or project identity markers.
 
-i. Use automated tools, bots, or scripts to mass-download, mirror, scrape, rehost, or redistribute this project.
+i. Use automated tools, bots, scripts, mirrors, scrapers, or bulk-download systems to mass-download, mirror, scrape, rehost, or redistribute this Project.
 
-j. Circumvent, bypass, remove, or alter license notices, attribution notices, update metadata, official download links, or project identity markers.
+j. Circumvent, bypass, remove, or alter license notices, attribution notices, official download links, update checks, metadata, branding, or project identity markers.
 
-3. Official Distribution
+k. Maintain a public fork as a separate distributed project, unofficial update channel, unofficial port, unofficial backport, or competing replacement.
+
+l. Use this Project or any part of it in a way that falsely suggests that earlystream approved, endorsed, partnered with, or published the resulting work.
+
+Small references to isolated ideas, APIs, or general programming concepts are not restricted by this clause. This license restricts copying protected expression, implementation, structure, assets, metadata, branding, and project materials from this Project.
+
+4. Official Distribution
 
 Official downloads are only authorized from locations controlled by earlystream, including official Modrinth, CurseForge, GitHub, or other pages explicitly linked by earlystream.
 
-Any copy of this project hosted elsewhere is unauthorized unless earlystream has given written permission.
+Any copy of this Project hosted elsewhere is unauthorized unless earlystream has given written permission.
 
-4. Platform Hosting Permission
+5. Platform Hosting Permission
 
-earlystream grants Modrinth, CurseForge, GitHub, and other platforms explicitly chosen by earlystream the limited permission needed to host, display, process, and distribute official uploads of this project through earlystream-controlled project pages.
+earlystream grants Modrinth, CurseForge, GitHub, and other platforms explicitly chosen by earlystream the limited permission needed to host, display, process, scan, cache, and distribute official uploads of this Project through earlystream-controlled project pages.
 
-This permission applies only to official uploads made or approved by earlystream. It does not allow third parties to reupload, mirror, fork, rename, or redistribute this project.
+This permission applies only to official uploads made or approved by earlystream.
 
-5. Modpacks
+This permission does not allow third parties to reupload, mirror, fork, rename, redistribute, or publish Modified Builds of this Project.
 
-You may include this project in modpacks only if the mod is obtained through an official Modrinth or CurseForge dependency/download system.
+6. Modpacks
 
-You may not manually rehost the JAR inside a modpack archive, launcher CDN, mirror, Discord server, file host, or third-party download page without written permission.
+You may include this Project in modpacks only if the mod is obtained through an Official Dependency System.
 
-6. Contributions
+You may not manually include, bundle, mirror, cache, rehost, or redistribute the JAR inside a modpack archive, launcher CDN, custom repository, Discord server, file host, or third-party download system without written permission from earlystream.
 
-By submitting code, documentation, assets, translations, suggestions, patches, pull requests, or other contributions to this project, you grant earlystream a perpetual, worldwide, royalty-free, non-exclusive license to use, modify, publish, distribute, sublicense, and relicense those contributions as part of this project.
+If a launcher or platform automatically caches official downloads as part of normal Modrinth or CurseForge dependency handling, that is allowed only to the extent required for users to install the official Project from its Official Project Page.
+
+7. Forks and Pull Requests
+
+Public forks are allowed only for preparing contributions back to the official Project.
+
+Public forks must clearly state that they are unofficial, must link back to the official Project, and must not publish releases, packages, JAR files, Modified Builds, or separate download pages.
+
+A fork may not be used as an unofficial continuation, competing project, replacement project, unofficial port, unofficial backport, or separate distribution channel without written permission from earlystream.
+
+8. Contributions
+
+By submitting code, documentation, assets, translations, suggestions, patches, pull requests, bug reports, compatibility fixes, security fixes, or other contributions to this Project, you grant earlystream a perpetual, worldwide, royalty-free, non-exclusive license to use, modify, publish, distribute, sublicense, and relicense those contributions as part of this Project.
 
 You confirm that any contribution you submit is your own work or that you have the necessary rights to submit it.
 
-7. Third-Party Code and Assets
+Submitting a contribution does not grant you ownership of the Project, permission to publish your own builds, or permission to redistribute the Project.
+
+9. Third-Party Code and Assets
 
 This license applies only to material owned by earlystream.
 
-Third-party libraries, APIs, tools, Minecraft, Mojang/Microsoft assets, loader APIs, mappings, and other dependencies remain under their respective licenses and ownership.
+Third-party libraries, APIs, tools, Minecraft, Mojang/Microsoft assets, loader APIs, mappings, dependencies, and other third-party materials remain under their respective licenses and ownership.
 
 Nothing in this license grants rights to third-party material.
 
-8. No Trademark or Branding Rights
+Where practical, third-party dependencies are identified through build files, dependency declarations, bundled notices, or upstream project documentation.
 
-This license does not grant permission to use the names, logos, icons, branding, visual identity, project metadata, or public identity of earlystream or this project except when clearly referring to the official project.
+If any third-party material is included by mistake or lacks proper attribution, contact earlystream so it can be reviewed and corrected.
 
-9. No Warranty
+10. No Trademark or Branding Rights
 
-This project is provided “as is”, without warranty of any kind.
+This license does not grant permission to use the names, logos, icons, branding, visual identity, project metadata, screenshots, descriptions, public identity, or author identity of earlystream or this Project except when clearly referring to the official Project.
 
-earlystream does not guarantee that the project will be error-free, secure, compatible with every modpack, suitable for any particular purpose, or available permanently.
+You may not use confusingly similar names, icons, logos, branding, metadata, or descriptions to suggest that another project is official, endorsed, or connected to earlystream.
 
-You use this project at your own risk.
+11. No Warranty
 
-10. Limitation of Liability
+This Project is provided “as is”, without warranty of any kind.
 
-To the maximum extent permitted by applicable law, earlystream is not liable for any damages, data loss, account issues, server issues, modpack issues, game crashes, lost profits, or other claims arising from the use or inability to use this project.
+earlystream does not guarantee that the Project will be error-free, secure, compatible with every Minecraft version, compatible with every modpack, suitable for any particular purpose, or available permanently.
 
-11. Termination
+You use this Project at your own risk.
 
-If you violate this license, your permission to use, view, modify, or distribute any part of this project terminates immediately.
+12. Limitation of Liability
 
-After termination, you must remove any unauthorized copies, builds, forks, mirrors, uploads, or derivative works under your control.
+To the maximum extent permitted by applicable law, earlystream is not liable for any damages, data loss, account issues, server issues, modpack issues, game crashes, lost profits, business interruption, corrupted worlds, compatibility issues, or other claims arising from the use or inability to use this Project.
 
-12. Written Permission
+13. Termination
+
+If you violate this license, your permission to use, view, modify, or distribute any part of this Project terminates immediately.
+
+After termination, you must remove any unauthorized copies, builds, forks, mirrors, uploads, packages, archives, download pages, or Derivative Projects under your control.
+
+Termination does not limit earlystream’s ability to request takedowns, report unauthorized uploads, or enforce rights through platform moderation systems.
+
+14. Written Permission
 
 Any permission outside this license must be granted in writing by earlystream.
 
-Private messages, comments, issue replies, or informal statements do not override this license unless they clearly state that permission is being granted for a specific use.
+Permission requests may be sent through the official GitHub repository issues or discussions, the contact method listed on the official project page, or another contact method explicitly published by earlystream.
 
-13. Previous Versions
+Permission is valid only if earlystream clearly grants permission for a specific use in writing.
 
-Earlier versions of this project released under another license remain governed by the license that applied to those specific versions at the time of release.
+Private messages, comments, issue replies, Discord messages, or informal statements do not override this license unless they clearly state that permission is being granted for a specific use.
 
-Versions 0.4.0 and newer are distributed under this Earlystream Source-Available License v1.0.
+15. Previous Versions
+
+Earlier versions of this Project released under another license remain governed by the license that applied to those specific versions at the time of release.
+
+Versions 0.4.0 and newer are distributed under this Earlystream Source-Available License v1.1.
 
 This license does not revoke rights that were already granted for earlier versions under the Mozilla Public License 2.0. However, those earlier licenses do not apply to versions 0.4.0 and newer unless explicitly stated.
 
-14. Not Open Source
+16. Rights Reserved
 
-This project is source-available, not open source.
+All rights not expressly granted by this license are reserved by earlystream.
 
-Access to the source code does not grant permission to redistribute, reupload, publish modified builds, create clones, or use the code in another project.
+This license does not grant permission to redistribute, reupload, publish Modified Builds, create clones, create unofficial continuations, create unofficial ports, or use the Project’s protected material in another project.
+
+17. Legal Limits
+
+Nothing in this license is intended to restrict rights that cannot be restricted under applicable law.
+
+If any part of this license is found to be unenforceable, the rest of the license remains in effect to the maximum extent permitted by law.
