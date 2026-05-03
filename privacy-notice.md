@@ -1,137 +1,71 @@
-# Find My Villager Online Sharing Privacy Notice
+# Find My Villager Privacy Notice
 
-Find My Villager is primarily a local, client-side Minecraft mod.
+**Find My Villager** is designed as a privacy-first, local-client mod for Minecraft. Core features—including villager searching, merchant capturing, filtering, and database management—operate entirely on your local machine and do not require an internet connection.
 
-The mod works without online sharing. Online sharing is optional.
+Online sharing is a strictly **optional** feature that is disabled by default.
 
-## Online Sharing Is Disabled by Default
+---
 
-Online Sharing and Incoming Invites are disabled by default.
+## 1. Privacy by Design: Local-First
+If you do not enable Online Sharing:
+- The mod makes no connections to the sharing relay.
+- No villager data, world metadata, or player identifiers are ever transmitted.
+- You cannot send or receive share invites.
 
-If Online Sharing is disabled:
-
-- Find My Villager does not connect to the online sharing relay for online sharing
-- You cannot send online share invites
-- You cannot receive online share invites
-- No villager data is uploaded through online sharing
-
-## What Online Sharing Does
-
-Find My Villager Online Sharing lets one player send selected saved villager data to another player.
-
-Online sharing uses a temporary Cloudflare Worker relay:
-
+## 2. Optional Online Sharing
+When you choose to use Online Sharing, the mod communicates with a dedicated Cloudflare Worker relay:
 `https://findmyvillagershare.earlystream.workers.dev`
 
-The relay is used to help deliver temporary villager share sessions between players who choose to use the feature.
+This relay facilitates the temporary transfer of villager data between players. It is built with **Privacy by Design** principles, ensuring that data is only transmitted when explicitly requested and accepted by both parties.
 
-## When Data Is Sent
+## 3. Identity Protection & Data Hardening
+To protect player privacy, Find My Villager implements **identity hashing**:
+- **No Cleartext UUIDs**: Your raw Minecraft Player UUID is never sent to the relay. Instead, it is transformed into a scoped SHA-256 hash before leaving your computer.
+- **No Tracking**: These hashes prevent the relay or third parties from trivially mapping sharing activity back to your persistent Minecraft identity or server history.
 
-Villager data is not uploaded automatically.
+## 4. Transparent Sharing Workflow
+Data is never "synced" or uploaded automatically. A transfer only occurs when:
+1. **Sender Action**: The sender enables Online Sharing and explicitly selects villagers to share.
+2. **Consent**: The sender acknowledges a privacy warning and chooses a specific recipient.
+3. **Receiver Action**: The receiver must have Online Sharing and "Incoming Invites" enabled.
+4. **Approval**: The receiver must manually accept the incoming share request.
+5. **Preview**: The receiver previews the data and chooses whether to merge or replace their local data.
 
-Villager data is only uploaded after all of these happen:
+## 5. What Data is Shared?
+When a share is successfully initiated, the following selected data is transmitted:
+- **Villager Metadata**: Names (detected or manual), professions, levels, and experience.
+- **Trading Data**: Item offers, prices (including discounts), and stock status.
+- **World Context**: Coordinates (X, Y, Z), dimension names, and last-seen timestamps.
+- **Mod Metadata**: Favorites, custom notes (if selected), and hashed world/server identifiers.
+- **Identity**: Minecraft usernames and **hashed** player UUIDs for routing.
 
-1. The sender enables Online Sharing.
-2. The sender opens **Data → Share Villagers**.
-3. The sender selects a player.
-4. The sender selects which villagers to share.
-5. The sender confirms the online sharing warning.
-6. The receiver has Online Sharing and Incoming Invites enabled.
-7. The receiver accepts the share request.
+## 6. What is NEVER Collected?
+Find My Villager does not access, collect, or transmit:
+- Microsoft or Minecraft account passwords.
+- Session tokens, access tokens, or login credentials.
+- Payment information or real-world identities (names, emails, etc.).
+- Full world maps or player inventories.
 
-The receiver still has to preview the shared data and choose an import mode before anything is imported.
+**Security Tip:** Never enter your Minecraft password or session tokens into any mod interface.
 
-## Data That May Be Shared
+## 7. Infrastructure & Metadata
+The relay uses Cloudflare Workers. Like most web services, Cloudflare may process standard connection metadata to ensure service stability and prevent abuse:
+- IP address and approximate geographic region.
+- Request timestamps and HTTP status codes.
+- User-Agent and Cloudflare request identifiers.
 
-Shared villager data may include:
+The relay is configured to minimize logging. We do not log full villager payloads, trade data, coordinates, or player identities.
 
-- Villager names
-- Villager professions
-- Villager levels
-- Trades
-- Trade prices
-- Stock/sold-out state
-- Favorites
-- Notes, if included
-- Dimensions
-- Coordinates
-- Last-seen timestamps
-- Database/world/server identifiers used by the mod
-- Sender and receiver Minecraft usernames/UUIDs
+## 8. Data Retention
+The relay is a **temporary delivery service**, not a storage platform.
+- **Short-Lived Sessions**: Shared data exists only as long as needed for delivery (typically less than 2 minutes).
+- **Automatic Cleanup**: Payloads are deleted immediately after delivery or upon session expiration/decline.
 
-Only selected villager data is shared. The whole database is not sent unless the user chooses to share all saved villagers.
+## 9. Import Security
+Shared data is treated as untrusted. The mod validates every incoming payload for structural integrity and safety before import. Receivers always maintain full control over whether to merge shared villagers into their hall or perform a full database replacement.
 
-## Data That Is Not Collected
-
-Find My Villager Online Sharing does not collect or ask for:
-
-- Microsoft account passwords
-- Minecraft login passwords
-- Minecraft session tokens
-- Access tokens
-- Payment information
-- Real names
-- Email addresses
-
-Do not enter private account information into Find My Villager.
-
-## Cloudflare and Connection Metadata
-
-Online sharing uses Cloudflare Workers.
-
-When Online Sharing is used, Cloudflare and the relay may process basic connection metadata needed to operate the service, such as:
-
-- IP address
-- request time
-- request path
-- user agent
-- approximate region/country
-- HTTP status codes
-- Cloudflare request identifiers
-
-This metadata may appear in Cloudflare operational logs or observability tools.
-
-Find My Villager should not log full villager payloads, notes, coordinates, trades, passwords, tokens, or full shared databases.
-
-## Temporary Relay Sessions
-
-Online shares are temporary.
-
-The relay is designed to use short-lived share sessions. Shared payloads should expire after a short timeout, delivery, decline, or session cleanup.
-
-The relay is not intended to permanently store villager databases.
-
-## Import Safety
-
-Receiving shared villagers does not automatically modify your data.
-
-Before import, the receiver can preview the shared villagers and choose:
-
-- **Partial Import** — merge shared villagers into the current database
-- **Replace Database** — replace only the current active world/server database after creating a backup
-
-Shared data is treated as untrusted. The mod validates shared payloads before importing them.
-
-## User Control
-
-You can disable Online Sharing at any time.
-
-You can also keep Online Sharing enabled while keeping Incoming Invites disabled if you only want to send shares and not receive share requests.
-
-## Important Notes
-
-Only share villagers with players you trust.
-
-Shared villager data may reveal coordinates, trading hall layouts, notes, and other local information about your world/server.
-
-Server owners cannot normally see Find My Villager relay payloads unless the data is also sent through Minecraft chat, commands, server packets, or another server-visible method.
-
-Cloudflare, network providers, or other infrastructure involved in internet traffic may process connection metadata.
-
-## Contact
-
-For issues, questions, or source code, use the project links:
-
-- Modrinth: `https://modrinth.com/mod/find-my-villager`
-- CurseForge: `https://www.curseforge.com/minecraft/mc-mods/find-my-villager`
-- GitHub: `https://github.com/earlystream/Find-My-Villager`
+## 10. Contact & Transparency
+Find My Villager is open about its data practices. You can review the source code or contact us at the following locations:
+- **GitHub**: [https://github.com/earlystream/Find-My-Villager](https://github.com/earlystream/Find-My-Villager)
+- **Modrinth**: [https://modrinth.com/mod/find-my-villager](https://modrinth.com/mod/find-my-villager)
+- **CurseForge**: [https://www.curseforge.com/minecraft/mc-mods/find-my-villager](https://www.curseforge.com/minecraft/mc-mods/find-my-villager)
