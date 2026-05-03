@@ -28,7 +28,7 @@
 
 # Find My Villager FAQ
 
-Common questions about Find My Villager, saved data, multiplayer support, file names, backups, and compatibility.
+Common questions about Find My Villager, saved data, multiplayer support, online sharing, backups, compatibility, and licensing.
 
 ---
 
@@ -44,7 +44,9 @@ tradecompass
 
 This is expected. The file name does not affect the mod.
 
-The old folder name is also kept to avoid breaking existing saved databases.
+The old folder name is currently kept to avoid breaking existing saved databases. A future version may rename or migrate the config folder from `tradecompass` to `find-my-villager` if it can be done safely without data loss.
+
+If that happens, the mod will aim to keep existing saved databases working through migration or compatibility handling.
 
 ---
 
@@ -88,29 +90,65 @@ It is a search and navigation tool, not an automation mod.
 
 ## Does it send data to a server?
 
-No.
+For normal local use, no.
 
-Saved villager data stays on your computer.
+Your saved villager databases stay on your computer.
 
-Find My Villager does not upload your saved databases.
+However, Find My Villager includes an optional online sharing feature. If you choose to use online sharing, the mod connects to the official relay server:
+
+```text
+https://findmyvillagershare.earlystream.workers.dev
+```
+
+The relay is used to pass share invites and shared villager trade data between players.
+
+Online sharing is only used when you open/use the sharing feature. Normal villager searching works locally without online sharing.
+
+---
+
+## What data is sent during online sharing?
+
+When online sharing is used, the mod sends only the data needed to create a share invite and transfer the selected shared villager database payload.
+
+The mod does **not** send raw Minecraft UUIDs in new share payloads. Player identity values are replaced with scoped SHA-256 hashes before being sent.
+
+The relay is designed to avoid logging player names, raw UUIDs, server addresses, world names, invite tokens, full payload contents, villager data, trade data, coordinates, item names, enchantments, prices, or professions.
+
+---
+
+## Can I use the mod without online sharing?
+
+Yes.
+
+Online sharing is optional.
+
+The main search, compass, glow highlight, favorites, custom names, import/export, and backup features work locally without using the online relay.
 
 ---
 
 ## Where is my data stored?
 
-Saved data is stored locally under:
+Saved data is currently stored locally under:
 
 ```text
 config/tradecompass/
 ```
 
-World and server databases are stored under:
+World and server databases are currently stored under:
 
 ```text
 config/tradecompass/worlds/
 ```
 
 The folder is still called `tradecompass` for compatibility with older versions.
+
+A future version may rename or migrate this folder to:
+
+```text
+config/find-my-villager/
+```
+
+If that change happens, it will be handled carefully so existing saved databases are not intentionally broken.
 
 ---
 
@@ -229,11 +267,19 @@ Yes.
 
 You can use **Backup Now** in the Data Manager, or copy the local config folder manually.
 
-The main folder is:
+The main folder is currently:
 
 ```text
 config/tradecompass/
 ```
+
+In a future version, this may become:
+
+```text
+config/find-my-villager/
+```
+
+If that happens, the mod will aim to migrate existing data safely.
 
 ---
 
@@ -248,6 +294,8 @@ config/tradecompass/worlds/
 ```
 
 Using the in-game Data Manager is safer because it validates imports and creates backups.
+
+If a future version migrates the config folder to `find-my-villager`, check the current config folder shown by the mod or use the Data Manager instead of manually guessing paths.
 
 ---
 
@@ -266,6 +314,8 @@ It asks for confirmation first.
 Because the mod used to be called **Trade Compass**.
 
 Keeping the old folder name helps prevent older saved databases from breaking after the rename.
+
+Newer versions may eventually migrate the config folder to `find-my-villager`, but only if the migration can preserve existing saved data safely.
 
 ---
 
@@ -345,10 +395,36 @@ Server rules can still vary, so check the rules of the server you play on.
 
 ## What license does the project use?
 
-Find My Villager is licensed under **MPL-2.0**.
+Versions 0.4.0 and newer are licensed under the **Earlystream Source-Available License v1.0**.
+
+This project is source-available for transparency, portfolio review, security review, compatibility review, and educational reading.
+
+You may use official builds for personal gameplay. You may not reupload, redistribute, rename, publish modified builds, copy substantial source code, or create competing clones without written permission.
+
+Older versions released under **MPL-2.0** remain under **MPL-2.0**.
 
 See:
 
 ```text
 LICENSE
 ```
+
+---
+
+## Can I reupload or redistribute the mod?
+
+No.
+
+Official downloads are only allowed from the official Modrinth page, CurseForge page, GitHub repository, or other locations explicitly approved by earlystream.
+
+Reuploads, renamed copies, modified builds, mirrors, unofficial ports, and third-party redistribution are not allowed without written permission.
+
+---
+
+## Can I use this in a modpack?
+
+Yes, but only through official platform dependency/download systems.
+
+Use the official Modrinth or CurseForge project page.
+
+Do not manually rehost the JAR in a modpack archive, launcher CDN, Discord server, file host, or third-party mirror without written permission.
