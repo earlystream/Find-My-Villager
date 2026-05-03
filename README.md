@@ -26,6 +26,17 @@
   </a>
 </p>
 
+## License
+
+Versions 0.4.0 and newer are licensed under the **Earlystream Source-Available License v1.0**.
+
+This project is source-available for transparency, portfolio review, security review, compatibility review, and educational reading.
+
+You may use official builds for personal gameplay. You may not reupload, redistribute, rename, publish modified builds, copy substantial source code, or create competing clones without written permission.
+
+Older versions released under MPL-2.0 remain under MPL-2.0.
+
+
 # Find My Villager
 
 **Ctrl+F for your trading hall.**  
