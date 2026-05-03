@@ -1,5 +1,109 @@
-Mozilla Public License Version 2.0
-==================================
+Earlystream Source-Available License v1.0
 
-This project is licensed under the Mozilla Public License, version 2.0.
-The full license text is available at https://www.mozilla.org/MPL/2.0/.
+Copyright © 2026 earlystream. All rights reserved.
+
+This project, including its source code, compiled files, documentation, assets, icons, logos, branding, names, descriptions, screenshots, metadata, and related materials, is owned by earlystream unless otherwise stated.
+
+This project is source-available for transparency, portfolio review, security review, compatibility review, educational reading, and contribution review only.
+
+1. Allowed Uses
+
+You may:
+
+a. Download and use official builds of this project for personal gameplay.
+
+b. View and read the source code for learning, review, security inspection, compatibility work, and portfolio evaluation.
+
+c. Use this project in modpacks only by depending on or linking to the official Modrinth or CurseForge project pages, without rehosting the mod file yourself.
+
+d. Create private local modifications for your own personal use only, as long as you do not publish, share, distribute, sell, upload, or rehost those modifications.
+
+e. Fork the repository only for the purpose of submitting bug reports, pull requests, patches, or compatibility fixes back to the official project.
+
+2. Prohibited Uses
+
+You may not, without prior written permission from earlystream:
+
+a. Redistribute, reupload, mirror, rehost, or republish the project or any compiled JAR file.
+
+b. Publish modified builds, forked builds, renamed builds, unofficial ports, unofficial backports, or derivative versions.
+
+c. Upload this project or a modified version of it to Modrinth, CurseForge, GitHub Releases, Discord, forums, file hosts, modpack launchers, or any other distribution platform.
+
+d. Sell, sublicense, rent, monetize, or commercially distribute this project or any derivative work.
+
+e. Copy substantial parts of the source code into another project.
+
+f. Use the project name, mod ID, logo, icon, screenshots, branding, descriptions, or metadata to imply ownership, authorship, endorsement, partnership, or official status.
+
+g. Remove, hide, alter, or misrepresent copyright notices, license notices, author names, credits, or links to the official project.
+
+h. Use this project to create a competing clone, renamed copy, reupload, or substantially similar mod.
+
+i. Use automated tools, bots, or scripts to mass-download, mirror, scrape, rehost, or redistribute this project.
+
+3. Official Distribution
+
+Official downloads are only authorized from locations controlled by earlystream, including official Modrinth, CurseForge, GitHub, or other pages explicitly linked by earlystream.
+
+Any copy of this project hosted elsewhere is unauthorized unless earlystream has given written permission.
+
+4. Modpacks
+
+You may include this project in modpacks only if the mod is obtained through an official Modrinth or CurseForge dependency/download system.
+
+You may not manually rehost the JAR inside a modpack archive, launcher CDN, mirror, Discord server, file host, or third-party download page without written permission.
+
+5. Contributions
+
+By submitting code, documentation, assets, translations, suggestions, patches, pull requests, or other contributions to this project, you grant earlystream a perpetual, worldwide, royalty-free license to use, modify, publish, distribute, and relicense those contributions as part of this project.
+
+You confirm that any contribution you submit is your own work or that you have the necessary rights to submit it.
+
+6. Third-Party Code and Assets
+
+This license applies only to material owned by earlystream.
+
+Third-party libraries, APIs, tools, Minecraft, Mojang/Microsoft assets, loader APIs, mappings, and other dependencies remain under their respective licenses and ownership.
+
+Nothing in this license grants rights to third-party material.
+
+7. No Trademark or Branding Rights
+
+This license does not grant permission to use the names, logos, icons, branding, visual identity, project metadata, or public identity of earlystream or this project except when clearly referring to the official project.
+
+8. No Warranty
+
+This project is provided “as is”, without warranty of any kind.
+
+earlystream does not guarantee that the project will be error-free, secure, compatible with every modpack, suitable for any particular purpose, or available permanently.
+
+You use this project at your own risk.
+
+9. Limitation of Liability
+
+To the maximum extent permitted by applicable law, earlystream is not liable for any damages, data loss, account issues, server issues, modpack issues, game crashes, lost profits, or other claims arising from the use or inability to use this project.
+
+10. Termination
+
+If you violate this license, your permission to use, view, modify, or distribute any part of this project terminates immediately.
+
+After termination, you must remove any unauthorized copies, builds, forks, mirrors, uploads, or derivative works under your control.
+
+11. Written Permission
+
+Any permission outside this license must be granted in writing by earlystream.
+
+Private messages, comments, issue replies, or informal statements do not override this license unless they clearly state that permission is being granted for a specific use.
+
+12. Previous Versions
+
+Earlier versions of this project released under another license remain governed by the license that applied to those specific versions at the time of release.
+
+Versions [VERSION] and newer are distributed under this Earlystream Source-Available License v1.0.
+
+13. Not Open Source
+
+This project is source-available, not open source.
+
+Access to the source code does not grant permission to redistribute, reupload, publish modified builds, create clones, or use the code in another project.
